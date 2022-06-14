@@ -17,7 +17,8 @@ const DisplayForm = ({ stepNo, moveToNext, moveToPrevious }) => {
                             <StepsForm moveToPrevious={moveToPrevious} stepNo={stepNo} moveToNext={moveToNext} />
                             : stepNo == 2 ?
                                 <DiscountsForm moveToPrevious={moveToPrevious} stepNo={stepNo} moveToNext={moveToNext} />
-                                : <SummaryForm moveToPrevious={moveToPrevious} stepNo={stepNo} moveToNext={moveToNext} />
+                                : 
+                                <SummaryForm moveToPrevious={moveToPrevious} stepNo={stepNo} moveToNext={moveToNext} />
                 }
             </Card>
             </>
