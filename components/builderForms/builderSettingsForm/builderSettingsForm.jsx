@@ -9,6 +9,7 @@ import CustomizeUrlSetting from './customizeUrlSettings/customizeUrlSettings'
 import EditTranslation from './editTranslation/editTranslation'
 import { useEffect, useState } from "react"
 import api from '../../../api/index'
+import axios from "axios"
 
 const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     let [formData, setFormData] = useState({
@@ -42,9 +43,7 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
         },
         seo_settings: {
             title: "",
-            keywords: [
-                ""
-            ],
+            keywords: "",
             description: ""
         },
         shipping_and_fulfillment: {
@@ -72,10 +71,8 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     // },[])
 
     const submitForm = async () => {
-        const response = await api.createBuilderSettings().then((d) => {
-            console.log(d)
-            moveToNext(stepNo)
-        });
+        const response = await api.createBuilderSettings(formData)
+        console.log("My Response =>>>", response);
     }
 
     const FormsData = (data) => {
@@ -163,10 +160,10 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <hr />
                 <EditTranslation checkBoxData={checkBoxData} FormsData={FormsData} />
                 <div className="float-right mt-5">
-                    <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Previous</Button>
+                    <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Back</Button>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => {
                         submitForm()
-                    }} >Next</Button>
+                    }} >Save & Next</Button>
                 </div>
             </div>
         </>
