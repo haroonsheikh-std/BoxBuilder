@@ -72,6 +72,7 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 
     const submitForm = async () => {
         const response = await api.createBuilderSettings(formData)
+        moveToPrevious(stepNo)
         console.log("My Response =>>>", response);
     }
 
