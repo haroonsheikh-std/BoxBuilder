@@ -10,6 +10,7 @@ const Stepper = () => {
     const [currentColor, setCurrentColor] = useState()
 
     const moveToNext = (step) => {
+        console.log(step);
         if (step < 3) {
             setStepNo(step + 1)
         } 
