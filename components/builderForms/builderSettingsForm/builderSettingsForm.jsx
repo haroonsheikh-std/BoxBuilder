@@ -161,7 +161,7 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <hr />
                 <EditTranslation checkBoxData={checkBoxData} FormsData={FormsData} />
                 <div className="float-right mt-5">
-                    <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Back</Button>
+                    <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Exit/Update</Button>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => {
                         submitForm()
                     }} >Save & Next</Button>
