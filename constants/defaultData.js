@@ -34,7 +34,7 @@ const builderSettingsData = {
     },
     shipping_and_fulfillment: {
         fulfilment_service: "",
-        require_shipping: ""
+        require_shipping: false
     },
     deleted_at: "2022-06-14",
     is_deleted: false,
@@ -51,7 +51,7 @@ const builderSettingsData = {
     custom_url_path: "",
     step: 0
 }
-const stepsFormData = {
+export const stepsFormData = {
     meta_settings: {
         requied_steps: true,
         show_box_content_summary: true,
@@ -74,6 +74,6 @@ const stepsFormData = {
     maximum_selection: 0,
     collection: 0,
     type: "string",
-    builder_setting: "string"
+    builder_setting: "4"
 }
 export default builderSettingsData

@@ -5,6 +5,7 @@ import AddContentHmtlStep from './AddContentHmtlStep/AddContentHmtlStep'
 import AddFormStep from './AddFormStep/AddFormStep'
 import AddSubscriptionStep from './AddSubscriptionStep/AddSubscriptionStep'
 import AddPreProductSelectionStep from './AddPreProductSelectionStep/AddPreProductSelectionStep'
+import InformationCard from '../../widgets/infoCard'
 
 const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     const [openAddProductSelectionStep, setAddProductSelectionStep] = useState(false)
@@ -28,14 +29,10 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                         <h5 className="d-inline-block text-md">Builder Steps </h5>
                         <p className="text-sm">Add the steps in the order you wish for them to appear to the customer.</p>
                     </div>
-                    <div className="alert">
-                        <Alert show={true} variant="success" style={{ backgroundColor: '#e9faf2' }}>
-                            <Alert.Heading className="text-dark">Form Steps</Alert.Heading>
-                            <p className="text-sm text-secondary ">
-                                A form step will allow you to collect custom information from the customer. This could be an engraving, a personalised note or anything you like. This information you collect will appear on the order.
-                            </p>
-                        </Alert>
-                    </div>
+                    <InformationCard
+                        heading='Form Steps'
+                        description='A form step will allow you to collect custom information from the customer. This could be an engraving, a personalised note or anything you like. This information you collect will appear on the order.'
+                    />
                     <hr />
                     <div className="table_wrapper">
                         <Table striped bordered hover variant="light">
@@ -111,8 +108,8 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 
             <div className="form_wrapper">
                 {openAddProductSelectionStep ? <AddProductSelectionStep handleResetCallback={handleResetCallback} /> : null}
-                {openAddContentHmtlStep ? <AddContentHmtlStep handleResetCallback={handleResetCallback}/> : null}
-                {openAddFormStep ? <AddFormStep handleResetCallback={handleResetCallback}/> : null}
+                {openAddContentHmtlStep ? <AddContentHmtlStep handleResetCallback={handleResetCallback} /> : null}
+                {openAddFormStep ? <AddFormStep handleResetCallback={handleResetCallback} /> : null}
                 {openAddSubscriptionStep ? <AddSubscriptionStep handleResetCallback={handleResetCallback} /> : null}
                 {openAddPreProductSelectionStep ? <AddPreProductSelectionStep handleResetCallback={handleResetCallback} /> : null}
             </div>

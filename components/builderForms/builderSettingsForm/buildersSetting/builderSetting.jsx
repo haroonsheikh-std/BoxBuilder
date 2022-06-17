@@ -32,9 +32,8 @@ const BuilderSettings = ({ FormsData,checkBoxData }) => {
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Label className="text-sm ">When complete, send customers to the:</Form.Label>
                         <Form.Select name="redirect" onChange={(e)=>{ FormsData(e) }} aria-label="Default select example">
-                            <option selected disabled> select </option>
-                            <option name="cart"  value="cart">Cart</option>
-                            <option name="checkout" value="checkout">CheckOut</option>
+                            <option selected name="cart"  value="CART">Cart</option>
+                            <option name="checkout" value="CHECKOUT">CheckOut</option>
                         </Form.Select>
                     </Form.Group>
                 </Col>

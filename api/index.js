@@ -1,2 +1,3 @@
 import {createBuilderSettings} from  '../api/builderSettings/index'
-export default {createBuilderSettings};
+import {createBuilderSteps} from '../api/stepsForm/index'
+export default {createBuilderSettings,createBuilderSteps};

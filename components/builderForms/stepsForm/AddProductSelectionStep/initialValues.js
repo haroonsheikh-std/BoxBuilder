@@ -21,7 +21,7 @@ const initialValues = {
     maximum_selection: 0,
     collection: 0,
     type: "string",
-    builder_setting: "string"
+    builder_setting: "4"
 }
 
 export default initialValues

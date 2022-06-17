@@ -15,7 +15,7 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     let [formData, setFormData] = useState(builderSettingsData);
 
     const submitForm = async () => {
-        const response = await api.createBuilderSettings().then((d) => {
+        const response = await api.createBuilderSettings(formData).then((d) => {
             console.log(d)
             moveToNext(stepNo)
         });

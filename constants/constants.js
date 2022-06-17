@@ -1,0 +1,1 @@
+export const BASE_URL='http://b3cc-54-146-232-65.ngrok.io/api/'
