@@ -7,6 +7,7 @@ import SeoSettings from './seoSettings/seoSettings'
 import ShipmentSettings from './shipmentSettings/shipmentSettings'
 import CustomizeUrlSetting from './customizeUrlSettings/customizeUrlSettings'
 import EditTranslation from './editTranslation/editTranslation'
+import ThemeBuilders from "./themeBuilder/themeBuilder"
 import { useEffect, useState } from "react"
 import api from '../../../api/index'
 import builderSettingsData from '../../../constants/defaultData.js'
@@ -105,6 +106,9 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <CustomizeUrlSetting checkBoxData={checkBoxData} FormsData={FormsData} />
                 <hr />
                 <EditTranslation checkBoxData={checkBoxData} FormsData={FormsData} />
+                <hr />
+                <ThemeBuilders checkBoxData={checkBoxData} FormsData={FormsData} />
+
                 <div className="float-right mt-5">
                     <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Exit/Update</Button>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => {
