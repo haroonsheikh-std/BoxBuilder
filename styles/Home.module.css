@@ -12,6 +12,16 @@
   align-items: center;
 }
 
+.cus_md {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+.cus_sm {
+  font-size: 13px !important;
+  /* font-weight: 400 !important; */
+}
+
 .footer {
   display: flex;
   flex: 1;
