@@ -1,25 +1,13 @@
 import axios from 'axios';
 import { resolve } from '../../constants/resolver';
-
-const BASE_URL = ' https://fc1e-54-146-232-65.ngrok.io/api/create-builder-settings/';
+import { BASE_URL } from '../../constants/constants';
 
 export const createBuilderSettings = async (object) => {
-    return await resolve(
-        
-        axios.post(BASE_URL, object, {
-
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          
-          }).then(response => {
-            return response
-          })
-    );
+    return await resolve(axios.post(`${BASE_URL}create-builder-settings/`,object).then(res => res.data));
 }
 
 export const editBuilderSettings = async (id) => {
-    return await resolve(axios.post(`${BASE_URL}create-builder-settings/${id}/`,object).then(res => res.data));
+    return await resolve(axios.put(`${BASE_URL}create-builder-settings/${id}/`).then(res => res.data));
 }
 
 export const getBuilderSettings = async () => {
