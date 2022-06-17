@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap"
+import { Button, Row, Col, Card } from "react-bootstrap"
 
 const SummaryForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     return (
@@ -47,7 +47,6 @@ const SummaryForm = ({ moveToNext, stepNo, moveToPrevious }) => {
             </div>
 
         </>
-
     )
 }
 export default SummaryForm

@@ -23,8 +23,7 @@ const SeoSettings = ({ FormsData,checkBoxData }) => {
                                     <Form.Text id="passwordHelpBlock" muted>
                                         Override the default SEO title.
                                     </Form.Text>
-                                </>
-                            </Col>
+                                </></Col>
                             <Col>
                                 <>
                                     <Form.Label htmlFor="inputPassword5">SEO Keywords

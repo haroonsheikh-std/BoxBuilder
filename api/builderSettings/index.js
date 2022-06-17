@@ -7,7 +7,7 @@ export const createBuilderSettings = async (object) => {
 }
 
 export const editBuilderSettings = async (id) => {
-    return await resolve(axios.put(`${BASE_URL}create-builder-settings/${id}/`).then(res => res.data));
+    return await resolve(axios.post(`${BASE_URL}create-builder-settings/${id}/`,object).then(res => res.data));
 }
 
 export const getBuilderSettings = async () => {

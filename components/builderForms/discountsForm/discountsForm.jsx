@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap"
-// import AddDiscounts from "./addDiscount/addDiscount"
+import AddDiscounts from "./addDiscount/addDiscount"
 import DiscountModals from "./discountModal/discountModal"
 import { useEffect, useState } from "react"
 
@@ -93,7 +93,7 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 </div>
                 <br></br>
                 <br></br>
-                {/* <AddDiscounts/> */}
+                <AddDiscounts/>
                 <hr />
                 <DiscountModals checkBoxData={checkBoxData} FormsData={FormsData}/>
 
