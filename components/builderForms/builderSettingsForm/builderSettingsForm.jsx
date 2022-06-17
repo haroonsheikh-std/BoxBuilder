@@ -7,6 +7,7 @@ import SeoSettings from './seoSettings/seoSettings'
 import ShipmentSettings from './shipmentSettings/shipmentSettings'
 import CustomizeUrlSetting from './customizeUrlSettings/customizeUrlSettings'
 import EditTranslation from './editTranslation/editTranslation'
+import ThemeBuilders from "./themeBuilder/themeBuilder"
 import { useEffect, useState } from "react"
 import api from '../../../api/index'
 import builderSettingsData from '../../../constants/defaultData.js'
@@ -15,10 +16,9 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     let [formData, setFormData] = useState(builderSettingsData);
 
     const submitForm = async () => {
-        const response = await api.createBuilderSettings(formData).then((d) => {
-            console.log(d)
-            moveToNext(stepNo)
-        });
+        const response = await api.createBuilderSettings(formData)
+        moveToPrevious(stepNo)
+        console.log("My Response =>>>", response);
     }
 
     const FormsData = (data) => {
@@ -105,11 +105,14 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <CustomizeUrlSetting checkBoxData={checkBoxData} FormsData={FormsData} />
                 <hr />
                 <EditTranslation checkBoxData={checkBoxData} FormsData={FormsData} />
+                <hr />
+                <ThemeBuilders checkBoxData={checkBoxData} FormsData={FormsData} />
+
                 <div className="float-right mt-5">
                     <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Exit/Update</Button>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => {
                         submitForm()
-                    }} >Next</Button>
+                    }} >Save & Next</Button>
                 </div>
             </div>
         </>
@@ -117,23 +120,3 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 }
 
 export default BuilderSettingsForm
-
-
-// let obj = [title: "Customer Info", fields:[
-//     {
-//         type: "checkbox",
-//         title: "Enable Image Lightbox",
-//         desc: " Enable Image LightboxEnable Image Lightbox Enable Image Lightbox",
-//         class: "",
-//         id: "",
-//         name: ""
-//     },
-//     {
-//         type: "text",
-//         title: "Enable Image Lightbox",
-//         desc: " Enable Image LightboxEnable Image Lightbox Enable Image Lightbox",
-//         class: "",
-//         id: "",
-//         name: ""
-//     }
-// ] ]
