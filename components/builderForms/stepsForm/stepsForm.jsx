@@ -1,18 +1,22 @@
-import { useState } from "react"
-import { Button, Alert, Table, Col, InputGroup, Form, Row } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import { Button, Alert, Table, Col, InputGroup, Form, Row, Spinner } from "react-bootstrap"
 import AddProductSelectionStep from './AddProductSelectionStep/AddProductSelectionStep'
 import AddContentHmtlStep from './AddContentHmtlStep/AddContentHmtlStep'
 import AddFormStep from './AddFormStep/AddFormStep'
 import AddSubscriptionStep from './AddSubscriptionStep/AddSubscriptionStep'
 import AddPreProductSelectionStep from './AddPreProductSelectionStep/AddPreProductSelectionStep'
 import InformationCard from '../../widgets/infoCard'
+import api from "../../../api/index";
 
 const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
+    const [loading, SetLoading] = useState(false)
     const [openAddProductSelectionStep, setAddProductSelectionStep] = useState(false)
     const [openAddContentHmtlStep, setAddContentHmtlStep] = useState(false)
     const [openAddFormStep, setAddFormStep] = useState(false)
     const [openAddSubscriptionStep, setAddSubscriptionStep] = useState(false)
     const [openAddPreProductSelectionStep, setAddPreProductSelectionStep] = useState(false)
+    const [storeStepsList, setStoreStepsList] = useState()
+    const [currentEditObject, setCurrentEditObject] = useState()
 
     const handleResetCallback = () => {
         setAddProductSelectionStep(false)
@@ -21,6 +25,24 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
         setAddSubscriptionStep(false)
         setAddPreProductSelectionStep(false)
     }
+
+    const getSteps = async () => {
+        await api.StepsForm.getBuilderSteps().then((response) => {
+            setStoreStepsList(response.data)
+        }).catch((err) => err ? SetLoading(false) : null)
+    }
+
+    const deleteSteps = async (id) => {
+        SetLoading(true)
+        await api.StepsForm.deleteBuilderSteps(id).then(() => {
+            getSteps().then(() => SetLoading(false))
+        })
+    }
+
+    useEffect(() => {
+        getSteps()
+    }, [])
+
     return (
         <>
             {!openAddProductSelectionStep && !openAddContentHmtlStep && !openAddFormStep && !openAddSubscriptionStep && !openAddPreProductSelectionStep ?
@@ -36,6 +58,7 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                     <hr />
                     <div className="table_wrapper">
                         <Table striped bordered hover variant="light">
+
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -44,37 +67,49 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                                     <th>Delete</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>
-                                        <Button variant="light">Edit</Button>
-                                    </td>
-                                    <td>
-                                        <Button size="sm" variant="danger">Delete</Button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>
-                                        <Button variant="light">Edit</Button>
-                                    </td>
-                                    <td>
-                                        <Button size="sm" variant="danger">Delete</Button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry the Bird</td>
-                                    <td>
-                                        <Button variant="light">Edit</Button>
-                                    </td>
-                                    <td>
-                                        <Button size="sm" variant="danger">Delete</Button>
-                                    </td>
-                                </tr>
+                            <tbody align="center">
+                                {storeStepsList ?
+                                    storeStepsList?.map((data, index) => {
+                                        return (
+                                            <>
+                                                <tr>
+                                                    <td>{index}</td>
+                                                    <td>{data.title}</td>
+                                                    <td>
+                                                        <Button variant="light" onClick={() => {
+                                                            setCurrentEditObject(data)
+                                                            setAddProductSelectionStep(true)
+                                                        }}>Edit</Button>
+                                                    </td>
+                                                    <td>
+                                                        <Button size="sm" variant="danger" onClick={() => { deleteSteps(data.id) }}>{loading ? <>
+                                                            <Spinner
+                                                                as="span"
+                                                                animation="grow"
+                                                                size="sm"
+                                                                role="status"
+                                                                aria-hidden="true"
+                                                            />Loading...</>
+                                                            : 'Delete'}</Button>
+                                                    </td>
+                                                </tr>
+                                            </>
+                                        )
+                                    })
+                                    :
+                                    <>
+                                        <td colSpan={4}>
+                                            <div className="text-dark">
+                                                <Spinner variant="dark" animation="grow" size="sm" />
+                                                <Spinner animation="grow" size="sm" />
+                                                <Spinner animation="grow" size="sm" />
+                                            </div>
+                                        </td>
+                                        {/* <Spinner animation="grow" size="sm" />
+                                        <Spinner animation="grow" size="sm" />
+                                        <Spinner animation="grow" size="sm" /> */}
+                                    </>
+                                }
                             </tbody>
                         </Table>
                     </div>
@@ -84,7 +119,10 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                             <hr />
                             <label><b>Add a Product Step</b></label>
                             <Col className="mt-2">
-                                <button className="cus-secondary-button mx-2" name="AddProductSelectionStep" onClick={() => setAddProductSelectionStep(true)}>Add a Product Selection Step</button>
+                                <button className="cus-secondary-button mx-2" name="AddProductSelectionStep" onClick={() => {
+                                    setAddProductSelectionStep(true)
+                                    setCurrentEditObject('')
+                                }}>Add a Product Selection Step</button>
                                 <button className="cus-secondary-button" name="AddPreProductSelectionStep" onClick={() => setAddPreProductSelectionStep(true)}>Add a Pre-Selected Product Step</button>
                             </Col>
                             <hr />
@@ -107,7 +145,7 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
             }
 
             <div className="form_wrapper">
-                {openAddProductSelectionStep ? <AddProductSelectionStep handleResetCallback={handleResetCallback} /> : null}
+                {openAddProductSelectionStep ? <AddProductSelectionStep currentEditObject={currentEditObject} getSteps={getSteps} handleResetCallback={handleResetCallback} /> : null}
                 {openAddContentHmtlStep ? <AddContentHmtlStep handleResetCallback={handleResetCallback} /> : null}
                 {openAddFormStep ? <AddFormStep handleResetCallback={handleResetCallback} /> : null}
                 {openAddSubscriptionStep ? <AddSubscriptionStep handleResetCallback={handleResetCallback} /> : null}

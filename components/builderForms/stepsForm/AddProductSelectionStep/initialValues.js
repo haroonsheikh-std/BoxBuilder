@@ -11,6 +11,7 @@ const initialValues = {
         show_tags_filter: true,
         products_per_row: 0,
         set_collection_filter: 0,
+        allow_more_than_one_product:false,
         tags: ""
     },
     title: "",

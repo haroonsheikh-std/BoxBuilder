@@ -1,4 +1,4 @@
-import { Button, useForm } from "react-bootstrap"
+import { Button, useForm,Spinner } from "react-bootstrap"
 import BuilderSettings from './buildersSetting/builderSetting'
 import OrderProduct from './orderProductSetting/orderProductSetting'
 import DisplaySettings from './displaySettings/displaySettings'
@@ -10,15 +10,24 @@ import EditTranslation from './editTranslation/editTranslation'
 import { useEffect, useState } from "react"
 import api from '../../../api/index'
 import builderSettingsData from '../../../constants/defaultData.js'
+import { LoaderProvider, useLoading } from '@agney/react-loading';
 
 const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
+
+    const [load, setLoad] = useState(false)
+    const { containerProps, indicatorEl } = useLoading({
+        loading: load,
+    });
+
     let [formData, setFormData] = useState(builderSettingsData);
 
     const submitForm = async () => {
-        const response = await api.createBuilderSettings(formData).then((d) => {
+        setLoad(true)
+        const response = await api.BuilderSettings.createBuilderSettings(formData).then((d) => {
             console.log(d)
             moveToNext(stepNo)
-        });
+            setLoad(false)
+        }).catch((err) => setLoad(false))
     }
 
     const FormsData = (data) => {
@@ -86,7 +95,7 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 
     return (
         <>
-            <div className="wrapper">
+            <div {...containerProps} className="wrapper">
                 <div>
                     <h5 className="d-inline-block">Builder's Settings </h5> &nbsp;&nbsp;<span className="text-secondary text-xs cus-button" >Custom & Small</span>
                 </div>
@@ -109,31 +118,30 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                     <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Exit/Update</Button>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => {
                         submitForm()
-                    }} >Next</Button>
+                    }} >{indicatorEl ? 
+                    <>
+                    <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />
+                    Loading...
+                    </>
+                    : "Next"}</Button>
                 </div>
             </div>
+            {/* {indicatorEl ?
+                <>
+                    <div className="loader_center">
+                        {indicatorEl}
+                    </div>
+                </>
+                : null
+            } */}
         </>
     )
 }
 
 export default BuilderSettingsForm
-
-
-// let obj = [title: "Customer Info", fields:[
-//     {
-//         type: "checkbox",
-//         title: "Enable Image Lightbox",
-//         desc: " Enable Image LightboxEnable Image Lightbox Enable Image Lightbox",
-//         class: "",
-//         id: "",
-//         name: ""
-//     },
-//     {
-//         type: "text",
-//         title: "Enable Image Lightbox",
-//         desc: " Enable Image LightboxEnable Image Lightbox Enable Image Lightbox",
-//         class: "",
-//         id: "",
-//         name: ""
-//     }
-// ] ]

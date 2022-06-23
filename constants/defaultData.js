@@ -11,21 +11,21 @@ const builderSettingsData = {
         show_step_progress: false
     },
     style_settings: {
-        primary_button_color: "",
-        secondary_button_color: "",
-        product_select_color: "",
-        product_border_color: "",
-        lightbox_background_color: "",
-        lightbox_text_color: "",
-        progress_bar_text_color: "",
-        progress_bar_color: "",
-        total_box_background_color: "",
-        total_text_color: "",
-        total_price_text_color: "",
-        order_detail_product_text_color: "",
-        adding_to_cart_popup_background_color: "",
-        adding_to_cart_popup_title_color: "",
-        adding_to_cart_popup_text_color: ""
+        primary_button_color: "#000",
+        secondary_button_color: "#000",
+        product_select_color: "#000",
+        product_border_color: "#000",
+        lightbox_background_color: "#000",
+        lightbox_text_color: "#000",
+        progress_bar_text_color: "#000",
+        progress_bar_color: "#000",
+        total_box_background_color: "#000",
+        total_text_color: "#000",
+        total_price_text_color: "#000",
+        order_detail_product_text_color: "#000",
+        adding_to_cart_popup_background_color: "#000",
+        adding_to_cart_popup_title_color: "#000",
+        adding_to_cart_popup_text_color: "#000"
     },
     seo_settings: {
         title: "",
@@ -49,7 +49,7 @@ const builderSettingsData = {
     keep_builder: false,
     theme: {},
     custom_url_path: "",
-    step: 0
+    step: 1
 }
 export const stepsFormData = {
     meta_settings: {

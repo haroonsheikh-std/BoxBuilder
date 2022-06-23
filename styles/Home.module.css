@@ -102,6 +102,10 @@
   border-color: #0070f3;
 }
 
+.cus_rem_button:hover {
+  background-color: aqua !important;
+}
+
 .card h2 {
   margin: 0 0 1rem 0;
   font-size: 1.5rem;
