@@ -54,6 +54,8 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
             event.preventDefault();
             event.stopPropagation();
         }else{
+            event.preventDefault();
+            console.log('submitted....');
             SubmitForm()
         }
 

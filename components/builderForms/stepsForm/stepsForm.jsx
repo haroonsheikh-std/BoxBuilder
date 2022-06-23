@@ -10,6 +10,7 @@ import api from "../../../api/index";
 
 const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     const [loading, SetLoading] = useState(false)
+    const [selectedItem, setSetlectedItem] = useState()
     const [openAddProductSelectionStep, setAddProductSelectionStep] = useState(false)
     const [openAddContentHmtlStep, setAddContentHmtlStep] = useState(false)
     const [openAddFormStep, setAddFormStep] = useState(false)
@@ -82,15 +83,21 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                                                         }}>Edit</Button>
                                                     </td>
                                                     <td>
-                                                        <Button size="sm" variant="danger" onClick={() => { deleteSteps(data.id) }}>{loading ? <>
-                                                            <Spinner
-                                                                as="span"
-                                                                animation="grow"
-                                                                size="sm"
-                                                                role="status"
-                                                                aria-hidden="true"
-                                                            />Loading...</>
-                                                            : 'Delete'}</Button>
+                                                        <Button size="sm" variant="danger" onClick={() => {
+                                                            setSetlectedItem(index)
+                                                            deleteSteps(data.id)
+                                                        }
+                                                        }>
+                                                            {loading && selectedItem == index ? <>
+                                                                <Spinner
+                                                                    as="span"
+                                                                    animation="grow"
+                                                                    size="sm"
+                                                                    role="status"
+                                                                    aria-hidden="true"
+                                                                />Loading...</>
+                                                                : 'Delete'}
+                                                        </Button>
                                                     </td>
                                                 </tr>
                                             </>
