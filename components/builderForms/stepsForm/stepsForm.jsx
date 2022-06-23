@@ -7,9 +7,14 @@ import AddSubscriptionStep from './AddSubscriptionStep/AddSubscriptionStep'
 import AddPreProductSelectionStep from './AddPreProductSelectionStep/AddPreProductSelectionStep'
 import InformationCard from '../../widgets/infoCard'
 import api from "../../../api/index";
+import DataTable from "react-data-table-component"
+import EditIcon from "../../../assets/svgIcons/editIcon"
+import DeleteIcon from '../../../assets/svgIcons/deleteIcon'
 
 const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     const [loading, SetLoading] = useState(false)
+    const [search, setSearch] = useState()
+    const [filtereData, setFilteredData] = useState([])
     const [selectedItem, setSetlectedItem] = useState()
     const [openAddProductSelectionStep, setAddProductSelectionStep] = useState(false)
     const [openAddContentHmtlStep, setAddContentHmtlStep] = useState(false)
@@ -30,6 +35,7 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     const getSteps = async () => {
         await api.StepsForm.getBuilderSteps().then((response) => {
             setStoreStepsList(response.data)
+            setFilteredData(response.data)
         }).catch((err) => err ? SetLoading(false) : null)
     }
 
@@ -40,9 +46,47 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
         })
     }
 
+
     useEffect(() => {
         getSteps()
     }, [])
+
+    const columns = [
+        {
+            name: "Title",
+            selector: (row) => row.title,
+            sortable: true
+        },
+        {
+            name: "Edit",
+            cell: (row) => (
+                <Button variant="dark" onClick={() => {
+                    setCurrentEditObject(row)
+                    setAddProductSelectionStep(true)
+                }}><EditIcon /></Button>
+            )
+        },
+        {
+            name: "Delete",
+            cell: (row) => (
+                <Button size="sm" variant="danger" onClick={() => {
+                    // setSetlectedItem(index)
+                    deleteSteps(row.id)
+                }
+                }>
+                    {loading ? <>
+                        <Spinner
+                            as="span"
+                            animation="grow"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />Loading...</>
+                        : <DeleteIcon/>}
+                </Button>
+            )
+        },
+    ]
 
     return (
         <>
@@ -58,8 +102,20 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                     />
                     <hr />
                     <div className="table_wrapper">
-                        <Table striped bordered hover variant="light">
-
+                        <DataTable
+                            title="Steps Form"
+                            pagination
+                            fixedHeader
+                            highlightOnHover
+                            fixedHeaderScrollHeight="400px"
+                            subHeader
+                            subHeaderComponent={
+                                <input type='text' placeholder="Search here" value={search} onChange={(e) => setSearch(e.target.value)} className='w-25 form-control' />
+                            }
+                            columns={columns}
+                            data={storeStepsList?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
+                        />
+                        {/* <Table striped bordered hover variant="light">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -112,13 +168,10 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                                                 <Spinner animation="grow" size="sm" />
                                             </div>
                                         </td>
-                                        {/* <Spinner animation="grow" size="sm" />
-                                        <Spinner animation="grow" size="sm" />
-                                        <Spinner animation="grow" size="sm" /> */}
                                     </>
                                 }
                             </tbody>
-                        </Table>
+                        </Table> */}
                     </div>
 
                     <div className="p-2">
