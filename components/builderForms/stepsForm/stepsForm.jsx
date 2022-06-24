@@ -82,7 +82,7 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                             role="status"
                             aria-hidden="true"
                         />Loading...</>
-                        : <DeleteIcon/>}
+                        : <DeleteIcon />}
                 </Button>
             )
         },
@@ -107,71 +107,19 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                             pagination
                             fixedHeader
                             highlightOnHover
-                            fixedHeaderScrollHeight="400px"
+                            // fixedHeaderScrollHeight="450px"
                             subHeader
                             subHeaderComponent={
                                 <input type='text' placeholder="Search here" value={search} onChange={(e) => setSearch(e.target.value)} className='w-25 form-control' />
                             }
                             columns={columns}
+                            actions={
+                                <>
+                                    <span className="mx-2">Total:&nbsp;{storeStepsList?.length ?? "0"}</span>
+                                </>
+                            }
                             data={storeStepsList?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
                         />
-                        {/* <Table striped bordered hover variant="light">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>step</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody align="center">
-                                {storeStepsList ?
-                                    storeStepsList?.map((data, index) => {
-                                        return (
-                                            <>
-                                                <tr>
-                                                    <td>{index}</td>
-                                                    <td>{data.title}</td>
-                                                    <td>
-                                                        <Button variant="light" onClick={() => {
-                                                            setCurrentEditObject(data)
-                                                            setAddProductSelectionStep(true)
-                                                        }}>Edit</Button>
-                                                    </td>
-                                                    <td>
-                                                        <Button size="sm" variant="danger" onClick={() => {
-                                                            setSetlectedItem(index)
-                                                            deleteSteps(data.id)
-                                                        }
-                                                        }>
-                                                            {loading && selectedItem == index ? <>
-                                                                <Spinner
-                                                                    as="span"
-                                                                    animation="grow"
-                                                                    size="sm"
-                                                                    role="status"
-                                                                    aria-hidden="true"
-                                                                />Loading...</>
-                                                                : 'Delete'}
-                                                        </Button>
-                                                    </td>
-                                                </tr>
-                                            </>
-                                        )
-                                    })
-                                    :
-                                    <>
-                                        <td colSpan={4}>
-                                            <div className="text-dark">
-                                                <Spinner variant="dark" animation="grow" size="sm" />
-                                                <Spinner animation="grow" size="sm" />
-                                                <Spinner animation="grow" size="sm" />
-                                            </div>
-                                        </td>
-                                    </>
-                                }
-                            </tbody>
-                        </Table> */}
                     </div>
 
                     <div className="p-2">

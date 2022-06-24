@@ -97,7 +97,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
             }
         })
     }
-    console.log(formData);
+    
     const checkBoxData = (data) => {
         let parent_obj_name = data.target.dataset.parent;
         let input_name = data.target.name;
