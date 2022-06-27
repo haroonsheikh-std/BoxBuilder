@@ -3,9 +3,13 @@ import AddDiscounts from "./addDiscount/addDiscount"
 import DiscountModals from "./discountModal/discountModal"
 import { useEffect, useState } from "react"
 import { dicountFormData } from '../../../constants/defaultData'
+import api from '../../../api/index'
 
 const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 
+    useEffect(() => {
+        api.Shopify.getShopifyList()
+    }, [])
     return (
         <>
             <div className="wrapper">
