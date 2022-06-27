@@ -129,6 +129,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                 {
                     formik => (
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                             <h3>Adding a Product Step</h3>
                             <Col >
                                 <Form.Group className="mb-3" controlId="StepTitle">
                                     <Form.Label className="text-sm ">Step Title</Form.Label>
