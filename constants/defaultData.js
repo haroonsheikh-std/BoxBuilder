@@ -76,4 +76,18 @@ export const stepsFormData = {
     type: "string",
     builder_setting: "4"
 }
+
+export const dicountFormData = {
+    discount_title: "",
+    discount_type: "",
+    discount_amount: 0,
+    discount_when: "",
+    require_item_num: 0,
+    apply_on: "",
+    encourage_discount: false,
+    item_reached: 0,
+    apply_after: false,
+    on_order: 0,
+}
+
 export default builderSettingsData
