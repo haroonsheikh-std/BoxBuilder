@@ -173,13 +173,13 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                                 <Col >
                                     <Form.Group className="mb-3" controlId="ButtonText">
                                         <Form.Label  className="text-sm ">Button Text</Form.Label>
-                                        <Form.Control required placeholder='e.g Included' defaultValue={currentEditObject?.maximum_selection} name='button_text' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='ButtonText' />
+                                        <Form.Control required placeholder='e.g Included' defaultValue={currentEditObject?.maximum_selection} data-parent='meta_settings' name='button_text' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='ButtonText' />
                                         <p className="text-secondary text-sm">Can the customer select more than 1 product on this step?</p>
                                     </Form.Group>
                                 </Col>
                                 <Col >
                                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.requied_steps} data-parent='meta_settings' name='requied_steps' type="checkbox" label="ShowPrices" onChange={(e) => {
+                                        <Form.Check className="text-sm"  data-parent='meta_settings' name='show_prices' type="checkbox" label="Show Prices" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
                                         <p className="text-secondary text-sm">Removes the price from the button but still charges for the product.</p>
