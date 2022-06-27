@@ -10,6 +10,7 @@ const initialValues = {
         // show_collection_filter: true,
         // show_tags_filter: true,
         products_per_row: 0,
+        button_text: "",
         // set_collection_filter: 0,
         allow_more_than_one_product:false,
         // tags: ""

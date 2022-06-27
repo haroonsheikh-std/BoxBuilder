@@ -14,7 +14,7 @@ import AddProductsModal from '../../../modals/AddProductsModal/addProductsModal'
 
 const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
     const [isEdit, setIsEdit] = useState(currentEditObject && currentEditObject != '' ? true : false)
-    const [showCollectionsData, setShowCollectionsData] = useState();
+    // const [showCollectionsData, setShowCollectionsData] = useState();
     const [showProductData, setShowProductsData] = useState([]);
     const [isCollectionsModal, setIsCollectionsModal] = useState(false)
     const [isProductsModal, setIsProductsModal] = useState(false)
@@ -157,7 +157,7 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                                 <Col >
                                     <Form.Group className="mb-3" controlId="DisplayOrder">
                                         <Form.Label className="text-sm ">Display Order</Form.Label>
-                                        <Form.Control required defaultValue={currentEditObject?.display_order} placeholder='e.g 1' name='display_order' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label='Display Order' />
+                                        <Form.Control required defaultValue={currentEditObject?.display_order} placeholder='e.g 1' name='display_order' data-parent='meta_settings' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label='Display Order' />
                                         <p className="text-secondary text-sm">Set the order the step will display within this builder.</p>
                                     </Form.Group>
                                 </Col>
@@ -171,15 +171,15 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                             </Row>
                             <Row>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="MaximumSelections">
-                                        <Form.Label className="text-sm ">Button Text</Form.Label>
-                                        <Form.Control required placeholder='e.g 1' defaultValue={currentEditObject?.maximum_selection} name='maximum_selection' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='Maximum Selections' />
+                                    <Form.Group className="mb-3" controlId="ButtonText">
+                                        <Form.Label  className="text-sm ">Button Text</Form.Label>
+                                        <Form.Control required placeholder='e.g Included' defaultValue={currentEditObject?.maximum_selection} name='button_text' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='ButtonText' />
                                         <p className="text-secondary text-sm">Can the customer select more than 1 product on this step?</p>
                                     </Form.Group>
                                 </Col>
                                 <Col >
                                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.requied_steps} data-parent='meta_settings' name='requied_steps' type="checkbox" label="Show Prices" onChange={(e) => {
+                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.requied_steps} data-parent='meta_settings' name='requied_steps' type="checkbox" label="ShowPrices" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
                                         <p className="text-secondary text-sm">Removes the price from the button but still charges for the product.</p>
