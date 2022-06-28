@@ -6,10 +6,9 @@ import { dicountFormData } from '../../../constants/defaultData'
 import api from '../../../api/index'
 
 const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
-
     useEffect(() => {
-        api.Shopify.getShopifyList()
-    }, [])
+        api.Shopify.getShopifyList().then((res) => console.log(res?.data))
+    })
     return (
         <>
             <div className="wrapper">

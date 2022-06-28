@@ -30,7 +30,9 @@ const DiscountModals = () => {
     }
 
     const submitForm = async () => {
-        handleClose()
+        await api.AddDiscounts.createDiscounts(formData).then(() => {
+            handleClose()
+        })
     }
 
     const FormsData = (data) => {
@@ -91,21 +93,21 @@ const DiscountModals = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form noValidate validated id="DiscountModal" onSubmit={(e) => handleSubmit(e)}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="title">
                             <Form.Label className="text-sm ">Discount Title</Form.Label>
-                            <Form.Control required type="text" name="discount_title" value={discountTitle} onChange={(e) => { FormsData(e) }} placeholder="e.g. 10% off 8 items or more" />
+                            <Form.Control required type="text" name="title" value={discountTitle} onChange={(e) => { FormsData(e) }} placeholder="e.g. 10% off 8 items or more" />
                             <p className="text-secondary text-sm">Customers will see this in the cart/checkout pages </p>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Label className="text-sm ">Discount Type</Form.Label>
-                            <Form.Select name="discount_type" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
+                            <Form.Select name="type" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
                                 <option name="percentage" value="percentage">Percentage</option>
                                 <option name="fixed_amount" value="fixed_amount">Fixed Amount</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Label className="text-sm ">Discount Amount %</Form.Label>
-                            <Form.Control required name='discount_amount' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label="Default value" placeholder="e.g. 8" />
+                            <Form.Control required name='value' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label="Amount" placeholder="e.g. 8" />
                             <p className="text-secondary text-sm">A percentage between 1-99</p>
                         </Form.Group>
 
@@ -114,25 +116,25 @@ const DiscountModals = () => {
                             <Col >
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Label className="text-sm ">Apply Discount When</Form.Label>
-                                    <Form.Select name="discount_when" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
-                                        <option name="on_item" value="on_item">Numbers of items added</option>
-                                        <option name="on_price" value="on_price">Total price reaches an amount</option>
+                                    <Form.Select name="discount_criteria" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
+                                        <option name="on_item" value="Number of items added">Number of items added</option>
+                                        <option name="on_price" value="Total price reaches to an amount">Total price reaches to an amount</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Col>
                             <Col >
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Label className="text-sm ">Number of items required</Form.Label>
-                                    <Form.Control required name='require_item_num' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label="Default value" placeholder="e.g. 10" />
+                                    <Form.Control required name='items_required' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label="Default value" placeholder="e.g. 10" />
                                 </Form.Group>
                             </Col>
                         </Row>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Label className="text-sm ">Apply to a step or the whole builder</Form.Label>
-                            <Form.Select name="apply_on" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
+                            <Form.Select name="apply_to" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
                                 <option name="whole_builder" value="whole_builder">Whole Builder</option>
-                                <option name="step2" value="step2">Step 2</option>
-                                <option name="step3" value="step3">Step 3</option>
+                                <option name="step1" value="step_1">Step 1</option>
+                                {/* <option name="step3" value="step3"></option> */}
                             </Form.Select>
                             <p className="text-secondary text-sm">The discount will only apply when the above requirements are met on the step you choose, or the builder as a whole.</p>
                         </Form.Group>
@@ -151,7 +153,7 @@ const DiscountModals = () => {
                                     <Col >
                                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                             <Form.Label className="text-sm ">Encourage when items selected reach</Form.Label>
-                                            <Form.Control required value={itemReached} name='item_reached' className="text-sm" onChange={(e) => { FormsData(e) }} type="number" placeholder="e.g. 15" label="Default value" />
+                                            <Form.Control required value={itemReached} name='encourage_when' className="text-sm" onChange={(e) => { FormsData(e) }} type="number" placeholder="e.g. 15" label="Default value" />
                                             <p className="text-secondary text-sm">We will show a small popup when the item count or current price equals the amount you enter here.</p>
                                         </Form.Group>
                                     </Col>
@@ -161,14 +163,14 @@ const DiscountModals = () => {
                         <Row>
                             <Col >
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                    <Form.Check requiredv className="text-sm" name='apply_after' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
+                                    <Form.Check requiredv className="text-sm" name='remove_previous_discounts' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
                                     <p className="text-secondary text-sm">If unchecked, this discount will be added to any other discounts that are applied earlier in the order.</p>
                                 </Form.Group>
                             </Col>
                             <Col >
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Label className="text-sm ">Order</Form.Label>
-                                    <Form.Control required value={onOrder} name='on_order' className="text-sm" onChange={(e) => { FormsData(e) }} type="number" placeholder="e.g. 1" label="Default value" />
+                                    <Form.Control required value={onOrder} name='order' className="text-sm" onChange={(e) => { FormsData(e) }} type="number" placeholder="e.g. 1" label="Default value" />
                                     <p className="text-secondary text-sm">The order in which the discount is applied in case multiple discounts are added.</p>
                                 </Form.Group>
                             </Col>
