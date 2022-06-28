@@ -59,7 +59,7 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
         },
         {
             name: "Edit",
-            cell: (row) => (
+            cell: (row,index) => (
                 <Button variant="dark" onClick={() => {
                     setCurrentEditObject(row)
                     setAddProductSelectionStep(true)
@@ -70,11 +70,11 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
             name: "Delete",
             cell: (row) => (
                 <Button size="sm" variant="danger" onClick={() => {
-                    // setSetlectedItem(index)
+                    setSetlectedItem(row.id)
                     deleteSteps(row.id)
                 }
                 }>
-                    {loading ? <>
+                    {loading && selectedItem === row?.id ? <>
                         <Spinner
                             as="span"
                             animation="grow"
