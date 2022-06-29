@@ -129,8 +129,8 @@ const AddContentHmtlStep = ({ getSteps, handleResetCallback, currentEditObject }
                 {
                     formik => (
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                            <h3>Adding a Subscription Step</h3>
-                            <InformationCard heading='A few things to note before setting up a Content Step.' description="Any images that are added to the content, that are chosen from your device, will be uploaded to your theme's assets.
+                            <h3>Edit the contents of this step</h3>
+                            <InformationCard bullets={true} heading='A few things to note before setting up a Content Step.' description="Any images that are added to the content, that are chosen from your device, will be uploaded to your theme's assets.
 The fonts will be based on the fonts provided by your theme, so there are no font options here.
 Unless you specify font size here, it will take the default size of your theme.
 You may need to be familiar with CSS to achieve a more advanced design. You can use the 'Code View' in the editor to add CSS and custom classes." />
@@ -149,7 +149,7 @@ You may need to be familiar with CSS to achieve a more advanced design. You can 
                                     <p className="text-secondary text-sm"> Additional text to help the customer understand what's required from this step. </p>
                                 </Form.Group>
                             </Col>
-                            
+
                             <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                 <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.allow_more_than_one_product} data-parent='meta_settings' name='allow_more_than_one_product' type="checkbox" label="Allow more than 1 of the same product to be selected" onChange={(e) => {
                                     checkBoxData(e)
@@ -173,10 +173,10 @@ You may need to be familiar with CSS to achieve a more advanced design. You can 
                                     </Form.Group>
                                 </Col>
                             </Row>
-                           
-                          
+
+
                             <hr />
-                           
+
                             <div className="float-right">
                                 <Button variant="secondary" size="sm" onClick={() => handleResetCallback()}>Back</Button>
                                 <Button className="ml-2" variant="primary" size="sm" type="submit">Submit</Button>

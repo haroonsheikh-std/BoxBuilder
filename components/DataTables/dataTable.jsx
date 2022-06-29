@@ -1,26 +1,24 @@
 import DataTable from "react-data-table-component"
-const DataTable = ({tableData}) => {
-const columns=[
-    {
-        name:"Name",
-        selector:(row)=>row.title
-    },
-    {
-        name:"Name",
-        selector:(row)=>row.title
-    },
-    {
-        name:"Name",
-        selector:(row)=>row.title
-    },
-    {
-        name:"Name",
-        selector:(row)=>row.title
-    },
-]
+const DataTable = ({ data, columns }) => {
     return (
         <>
-            <DataTable />
+            <DataTable
+                title="Discount Form"
+                pagination
+                fixedHeader
+                highlightOnHover
+                subHeader
+                subHeaderComponent={
+                    <input type='text' placeholder="Search here" value={search} onChange={(e) => setSearch(e.target.value)} className='w-25 form-control' />
+                }
+                columns={columns}
+                actions={
+                    <>
+                        <span className="mx-2">Total:&nbsp;{data?.length ?? "0"}</span>
+                    </>
+                }
+                data={data?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
+            />
         </>
     )
 }

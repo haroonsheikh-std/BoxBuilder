@@ -130,7 +130,7 @@ const AddSubscriptionStep = ({ getSteps, handleResetCallback, currentEditObject 
                     formik => (
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
                             <h3>Adding a Subscription Step</h3>
-                            <InformationCard heading='Setting Up Subscription Plans' description='Please note that you will need to set up subscription plans using your preferred subscription app. Once they have been setup, you can link the plan to the product generated for this builder. All linked subscription plans/options will show within this step.' />
+                            <InformationCard bullets={true} heading='Setting Up Subscription Plans' description='Please note that you will need to set up subscription plans using your preferred subscription app. Once they have been setup, you can link the plan to the product generated for this builder. All linked subscription plans/options will show within this step.' />
 
                             <Col >
                                 <Form.Group className="mb-3" controlId="StepTitle">
