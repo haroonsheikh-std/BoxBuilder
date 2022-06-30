@@ -20,7 +20,7 @@ const Home = () => {
                 <div className='main-card'>
                     <InformationCard heading={'Which Builder Type should you use?'} description={'We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits.'} />
                 </div>
-                <div>
+                {/* <div>
                     <DataTable
                         title="Discount Form"
                         pagination
@@ -38,7 +38,7 @@ const Home = () => {
                         }
                         data={shopifyItems?.Products?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
                     />
-                </div>
+                </div> */}
             </div>
         </div>
     )

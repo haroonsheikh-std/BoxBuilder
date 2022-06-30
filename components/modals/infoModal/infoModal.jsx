@@ -13,7 +13,7 @@ function InfoModal({ modalState, handleClose }) {
                 aria-labelledby="example-modal-sizes-title-lg"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Builder Translations</Modal.Title>
+                    <Modal.Title>Order Product/SKU Settings</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="p-3">
                     <div className="cus-Overflow">
