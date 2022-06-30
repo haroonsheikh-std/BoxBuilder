@@ -1,4 +1,28 @@
-.cus-Overflow{
+.cus-Overflow {
     overflow: scroll !important;
     height: 65vh !important;
+}
+
+.cus_rem_button {
+    font-size: 14px;
+    color: #0084ff;
+}
+
+.cus_rem_button:hover {
+    text-decoration: underline;
+}
+
+.bg_hover:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+/*************loader**************/
+.loader_center {
+    position: fixed;
+    left: 50;
+    top: 50;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
 }
