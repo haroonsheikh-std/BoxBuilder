@@ -19,7 +19,7 @@ const ThemeBuilders = ({ FormsData,checkBoxData }) => {
                         />
                         <Form.Label id="passwordHelpBlock" muted>
                             Show only product images and price
-                            <Image src="https://builder.boxup.io/assets/image/full.png"></Image>
+                            <Image className="img-fluid" src="https://builder.boxup.io/assets/image/full.png"></Image>
                         </Form.Label>
                     </Col>
                     <Col>
@@ -33,7 +33,7 @@ const ThemeBuilders = ({ FormsData,checkBoxData }) => {
                         />
                         <Form.Text id="passwordHelpBlock" muted>
                             Also includes product descriptions
-                            <Image src="https://builder.boxup.io/assets/image/right.png"></Image>
+                            <Image className="img-fluid"  src="https://builder.boxup.io/assets/image/right.png"></Image>
                         </Form.Text>
                     </Col>
                 </Row>
