@@ -59,7 +59,7 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
         },
         {
             name: "Edit",
-            cell: (row,index) => (
+            cell: (row, index) => (
                 <Button variant="dark" onClick={() => {
                     setCurrentEditObject(row)
                     setAddProductSelectionStep(true)
@@ -74,14 +74,8 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                     deleteSteps(row.id)
                 }
                 }>
-                    {loading && selectedItem === row?.id ? <>
-                        <Spinner
-                            as="span"
-                            animation="grow"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                        />Loading...</>
+                    {loading && selectedItem === row?.id ?
+                        <Spinner size="sm" animation="border" variant="light" />
                         : <DeleteIcon />}
                 </Button>
             )
@@ -127,19 +121,19 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                             <hr />
                             <label><b>Add a Product Step</b></label>
                             <Col className="mt-2">
-                                <button className="cus-secondary-button mx-2" name="AddProductSelectionStep" onClick={() => {
+                                <Button variant="outline-secondary" name="AddProductSelectionStep" onClick={() => {
                                     setAddProductSelectionStep(true)
                                     setCurrentEditObject('')
-                                }}>Add a Product Selection Step</button>
-                                <button className="cus-secondary-button" name="AddPreProductSelectionStep" onClick={() => setAddPreProductSelectionStep(true)}>Add a Pre-Selected Product Step</button>
+                                }}>Add a Product Selection Step</Button>{'  '}
+                                <Button variant="outline-secondary" name="AddPreProductSelectionStep" onClick={() => setAddPreProductSelectionStep(true)}>Add a Pre-Selected Product Step</Button>
                             </Col>
                             <hr />
                             <Col>
                                 <label><b>Add a Product Step</b></label>
                                 <Col className="mt-2">
-                                    <button className="cus-secondary-button mx-2" onClick={() => setAddFormStep(true)}>Add a Form Step</button>
-                                    <button className="cus-secondary-button" onClick={() => setAddSubscriptionStep(true)}>Add a Subscription Step</button>
-                                    <button className="cus-secondary-button m-2" onClick={() => setAddContentHmtlStep(true)}>Add a Content/HTML Step</button>
+                                    <Button variant="outline-secondary" onClick={() => setAddFormStep(true)}>Add a Form Step</Button>{'  '}
+                                    <Button variant="outline-secondary" onClick={() => setAddSubscriptionStep(true)}>Add a Subscription Step</Button>{'  '}
+                                    <Button variant="outline-secondary" onClick={() => setAddContentHmtlStep(true)}>Add a Content/HTML Step</Button>
                                 </Col>
                             </Col>
                         </Col>

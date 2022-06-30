@@ -1,4 +1,4 @@
-import { Button, Alert, Table, Col, InputGroup, Label, Tab, Nav, Form, Row } from "react-bootstrap"
+import { Button, Alert, Table, Col, InputGroup, Label, Tabs, Tab, Nav, Form, Row } from "react-bootstrap"
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import initialValues from './initialValues'
@@ -35,9 +35,14 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                 handleResetCallback()
             })
         } else {
-            await api.StepsForm.createBuilderSteps(formData).then(() => {
-                getSteps()
-                handleResetCallback()
+            await api.StepsForm.createBuilderSteps(formData).then((res) => {
+                console.log('res', res.data);
+                if (res != null) {
+                    getSteps()
+                    handleResetCallback()
+                } else {
+                    console.log('error ==>', res)
+                }
             })
         }
         setIsEdit(false)
@@ -97,7 +102,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
             }
         })
     }
-    
+
     const checkBoxData = (data) => {
         let parent_obj_name = data.target.dataset.parent;
         let input_name = data.target.name;
@@ -120,6 +125,39 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
         })
     }
 
+    const radioButtonData = (data) => {
+        let parent_obj_name = data.target.dataset.parent;
+        let input_name = data.target.name;
+        let input_value = data.target.checked;
+        let keyName = data.target.value;
+        console.log(keyName);
+        let res = (keyName == "show_each_variant_seperately" ?
+            { show_each_variant_seperately: true, show_variant_select_box_beneath_product: false }
+            :
+            { show_each_variant_seperately: false, show_variant_select_box_beneath_product: true })
+
+        console.log(res);
+
+        setFormData((prev) => {
+            if (parent_obj_name) {
+                return {
+                    ...prev,
+                    [parent_obj_name]: {
+                        ...prev[parent_obj_name],
+                        ...res
+                    }
+                }
+            } else {
+                return {
+                    ...prev,
+                    [input_name]: input_value
+                }
+            }
+        })
+    }
+
+    console.log(formData);
+
     return (
         <>
             <Formik
@@ -129,12 +167,11 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                 {
                     formik => (
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                             <h3>Adding a Product Step</h3>
+                            <h3>Adding a Product Step</h3>
                             <Col >
                                 <Form.Group className="mb-3" controlId="StepTitle">
                                     <Form.Label className="text-sm ">Step Title</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.title} required placeholder='e.g select your Hard Drive' name='title' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
                             <Col >
@@ -198,7 +235,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                         <p className="text-secondary text-sm">This will show the currently selected products below the step title.</p>
                                     </Form.Group>
                                 </Col>
-                                <Col>
+                                <Col draggable >
                                     <Form.Label className="text-sm ">Products per row</Form.Label>
                                     <Form.Select data-parent='meta_settings' defaultChecked={currentEditObject?.meta_settings?.products_per_row} name="products_per_row" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
                                         <option selected value="3">3</option>
@@ -207,7 +244,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                 </Col>
                             </Row>
                             <Col >
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                <Form.Group className="mb-3" controlId="we">
                                     <Form.Check className="text-sm" data-parent='meta_settings' defaultChecked={currentEditObject?.meta_settings?.hide_from_step_progress} name='hide_from_step_progress' type="checkbox" label="Hide from Step Progress" onChange={(e) => {
                                         checkBoxData(e)
                                     }} />
@@ -218,18 +255,23 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                 <Col>
                                     <Form.Check
                                         label="Show each variant separately "
-                                        name="group1"
+                                        name="variant_type"
+                                        value={'show_each_variant_seperately'}
+                                        data-parent='meta_settings'
                                         type='radio'
-                                    // onChange={(e) => { checkBoxData(e) }}
+                                        defaultChecked
+                                        onChange={(e) => { radioButtonData(e); }}
                                     />
                                     <p className="text-secondary text-sm">Each variant will have it's own item available for selection. </p>
                                 </Col>
                                 <Col>
                                     <Form.Check
                                         label="Show a variant select box beneath product"
-                                        name="group1"
+                                        value={'show_variant_select_box_beneath_product'}
+                                        name="variant_type"
+                                        data-parent='meta_settings'
                                         type='radio'
-                                    // onChange={(e) => { checkBoxData(e) }}
+                                        onChange={(e) => { radioButtonData(e); }}
                                     />
                                     <p className="text-secondary text-sm">One item per product with a dropdown menu for the variant </p>
                                 </Col>
@@ -241,161 +283,155 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                 </Col>
                             </Row>
                             <InformationCard heading='Link a collection to products you wish to show' description='Products with no collections will not show. If you have products like this, simply create a collection and attach all products before completing this step.' />
-                            <hr />
-                            <Tab.Container id="left-tabs-example" defaultActiveKey="useCollection">
-                                <Row>
-                                    <Col >
-                                        <Nav variant="pills" >
-                                            <Nav.Item>
-                                                <Nav.Link className="cursor-pointer" eventKey="useCollection"> Use Collections</Nav.Link>
-                                            </Nav.Item>
-                                            <Nav.Item>
-                                                <Nav.Link className="cursor-pointer" eventKey="useSelectedProducts"> Use Selected Products</Nav.Link>
-                                            </Nav.Item>
-                                        </Nav>
-                                    </Col>
-                                </Row>
-                                <Col>
-                                    <Tab.Content>
-                                        <Tab.Pane eventKey="useCollection" >
-                                            <div className="mt-4">
-                                                <Button onClick={() => setIsCollectionsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Pick Collection</Button>
-                                                {showCollectionsData ?
-                                                    <div className="d-flex-inline bg_hover my-2 p-2">
-                                                        <img className="d-inline-block mx-2 rounded w-14 mb-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgolBdeaXdt7hZ4G28YiA8shOCg4jkBg08uA&usqp=CAU" alt="Dog" />
-                                                        <div className="d-inline-block mx-2">
-                                                            <div>{showCollectionsData?.name}</div>
-                                                            <div className="text-sm text-secondary text-ellipsis">{showCollectionsData?.description}</div>
-                                                        </div>
-                                                        <button className="cus_rem_button" onClick={() => { setShowCollectionsData('') }}> remove</button>
+                            <Col>
+                                <Tabs defaultActiveKey="useCollection" id="uncontrolled-tab-example" className="mb-3">
+                                    <Tab eventKey="useCollection" title="Home">
+                                        <div className="mt-4">
+                                            <Button onClick={() => setIsCollectionsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Pick Collection</Button>
+                                            {showCollectionsData ?
+                                                <div className="d-flex-inline bg_hover my-2 p-2">
+                                                    <img className="d-inline-block mx-2 rounded w-14 mb-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgolBdeaXdt7hZ4G28YiA8shOCg4jkBg08uA&usqp=CAU" alt="Dog" />
+                                                    <div className="d-inline-block mx-2">
+                                                        <div>{showCollectionsData?.name}</div>
+                                                        <div className="text-sm text-secondary text-ellipsis">{showCollectionsData?.description}</div>
                                                     </div>
+                                                    <button className="cus_rem_button" onClick={() => { setShowCollectionsData('') }}> remove</button>
+                                                </div>
+                                                : null
+                                            }
+                                            <hr />
+                                            <Row>
+
+                                                <Col >
+                                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_sort_by_dropdown_menu} data-parent='meta_settings' name='show_sort_by_dropdown_menu' type="checkbox" label="Show sort by drop down menu" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to sort by product title, collections and price</p>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col >
+                                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_title_filter} data-parent='meta_settings' name='show_title_filter' type="checkbox" label="Show title filter" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to filter by product title for this step</p>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col >
+                                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_collection_filter} data-parent='meta_settings' name='show_collection_filter' type="checkbox" label="Show collection filter" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to filter by collection for this step </p>
+                                                    </Form.Group>
+                                                </Col>
+                                                {formData?.meta_settings?.show_collection_filter ?
+                                                    <Col >
+                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                            <label>0 collection(s) selected</label>
+                                                            <Button variant="secondary" data-parent='meta_settings' name='set_collection_filter' className="button text-sm">Set Collections for Collections Filter</Button>
+                                                        </Form.Group>
+                                                    </Col>
                                                     : null
                                                 }
-                                                <hr />
-                                                <Row>
-
-                                                    <Col >
-                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_sort_by_dropdown_menu} data-parent='meta_settings' name='show_sort_by_dropdown_menu' type="checkbox" label="Show sort by drop down menu" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to sort by product title, collections and price</p>
-                                                        </Form.Group>
-                                                    </Col>
-                                                    <Col >
-                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_title_filter} data-parent='meta_settings' name='show_title_filter' type="checkbox" label="Show title filter" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to filter by product title for this step</p>
-                                                        </Form.Group>
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col >
-                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_collection_filter} data-parent='meta_settings' name='show_collection_filter' type="checkbox" label="Show collection filter" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to filter by collection for this step </p>
-                                                        </Form.Group>
-                                                    </Col>
-                                                    <Col >
-                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                                            <label>0 collection(s) selected</label>
-                                                            <Button variant="secondary" data-parent='meta_settings' name='set_collection_filter' className="button text-sm">Set Collections for Collections Filter</Button>
-                                                        </Form.Group>
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col >
-                                                        <Form.Group className="mb-3" >
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_tags_filter} data-parent='meta_settings' name='show_tags_filter' type="checkbox" label="Show tags filter" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to sort by product tags </p>
-                                                        </Form.Group>
-                                                    </Col>
-                                                    <Col >
-                                                        <Form.Group className="mb-3">
-                                                            <Col >
-                                                                <Form.Group className="mb-3" controlId="MaximumSelections">
-                                                                    <Form.Label className="text-sm ">Limit to these tags only (optional)</Form.Label>
-                                                                    <Form.Control required data-parent='meta_settings' defaultValue={currentEditObject?.meta_settings?.tags} placeholder='e.g Bags, Shoes, Necklaces' name='tags' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='Limit to these tags only (optional)' />
-                                                                    <p className="text-secondary text-sm">A comma-separated list of tags to show. If used, all other tags will be hidden. Please make sure to capitalize tags where necessary.</p>
-                                                                </Form.Group>
-                                                            </Col>
-                                                            {/* <TextField change={FormsData} placeholder='e.g Bags, Shoes, Necklaces' label='Limit to these tags only (optional)' name='tags' type='text' description='A comma-separated list of tags to show. If used, all other tags will be hidden. Please make sure to capitalize tags where necessary.' /> */}
-                                                        </Form.Group>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="useSelectedProducts" >
-                                            <div className="mt-4">
-                                                <Col>
-                                                    <Button onClick={() => setIsProductsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Add more steps</Button>
-                                                    {showProductData ?
-                                                        showProductData?.map((data, index) => {
-                                                            return (
-                                                                <div className="d-flex-inline bg_hover my-2 p-2">
-                                                                    <img className="d-inline-block mx-2 rounded w-14 mb-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgolBdeaXdt7hZ4G28YiA8shOCg4jkBg08uA&usqp=CAU" alt="Dog" />
-                                                                    <div className="d-inline-block mx-2">
-                                                                        <div>{data?.name}</div>
-                                                                        <div className="text-sm text-secondary text-ellipsis">{data?.description}</div>
-                                                                    </div>
-                                                                    <button className="cus_rem_button" onClick={() => { setShowProductsData(showProductData.filter(x => x != data)) }}> remove</button>
-                                                                </div>
-                                                            )
-                                                        })
+                                            </Row>
+                                            <Row>
+                                                <Col >
+                                                    <Form.Group className="mb-3" >
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_tags_filter} data-parent='meta_settings' name='show_tags_filter' type="checkbox" label="Show tags filter" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to sort by product tags </p>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col >
+                                                    {formData?.meta_settings?.show_tags_filter ?
+                                                        <Col >
+                                                            <Form.Group className="mb-3" controlId="MaximumSelections">
+                                                                <Form.Label className="text-sm ">Limit to these tags only (optional)</Form.Label>
+                                                                <Form.Control required data-parent='meta_settings' defaultValue={currentEditObject?.meta_settings?.tags} placeholder='e.g Bags, Shoes, Necklaces' name='tags' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='Limit to these tags only (optional)' />
+                                                                <p className="text-secondary text-sm">A comma-separated list of tags to show. If used, all other tags will be hidden. Please make sure to capitalize tags where necessary.</p>
+                                                            </Form.Group>
+                                                        </Col>
                                                         : null
                                                     }
+                                                    {/* <TextField change={FormsData} placeholder='e.g Bags, Shoes, Necklaces' label='Limit to these tags only (optional)' name='tags' type='text' description='A comma-separated list of tags to show. If used, all other tags will be hidden. Please make sure to capitalize tags where necessary.' /> */}
                                                 </Col>
-                                                <hr />
-                                                <Row>
+                                            </Row>
+                                        </div>
+                                    </Tab>
+                                    <Tab eventKey="useSelectedProducts" title="Profile">
+                                        <div className="mt-4">
+                                            <Col>
+                                                <Button onClick={() => setIsProductsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Add more steps</Button>
+                                                {showProductData ?
+                                                    showProductData?.map((data, index) => {
+                                                        return (
+                                                            <div className="d-flex-inline bg_hover my-2 p-2">
+                                                                <img className="d-inline-block mx-2 rounded w-14 mb-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgolBdeaXdt7hZ4G28YiA8shOCg4jkBg08uA&usqp=CAU" alt="Dog" />
+                                                                <div className="d-inline-block mx-2">
+                                                                    <div>{data?.name}</div>
+                                                                    <div className="text-sm text-secondary text-ellipsis">{data?.description}</div>
+                                                                </div>
+                                                                <button className="cus_rem_button" onClick={() => { setShowProductsData(showProductData.filter(x => x != data)) }}> remove</button>
+                                                            </div>
+                                                        )
+                                                    })
+                                                    : null
+                                                }
+                                            </Col>
+                                            <hr />
+                                            <Row>
 
-                                                    <Col >
-                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_sort_by_dropdown_menu} data-parent='meta_settings' name='show_sort_by_dropdown_menu' type="checkbox" label="Show sort by drop down menu" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to sort by product title, collections and price</p>
-                                                        </Form.Group>
-                                                    </Col>
-                                                    <Col >
-                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_title_filter} data-parent='meta_settings' name='show_title_filter' type="checkbox" label="Show title filter" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to filter by product title for this step</p>
-                                                        </Form.Group>
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col >
-                                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_collection_filter} data-parent='meta_settings' name='show_collection_filter' type="checkbox" label="Show collection filter" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to filter by collection for this step </p>
-                                                        </Form.Group>
-                                                    </Col>
+                                                <Col >
+                                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_sort_by_dropdown_menu} data-parent='meta_settings' name='show_sort_by_dropdown_menu' type="checkbox" label="Show sort by drop down menu" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to sort by product title, collections and price</p>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col >
+                                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_title_filter} data-parent='meta_settings' name='show_title_filter' type="checkbox" label="Show title filter" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to filter by product title for this step</p>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col >
+                                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_collection_filter} data-parent='meta_settings' name='show_collection_filter' type="checkbox" label="Show collection filter" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to filter by collection for this step </p>
+                                                    </Form.Group>
+                                                </Col>
+                                                {formData?.meta_settings?.show_collection_filter ?
                                                     <Col >
                                                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                                             <label>0 collection(s) selected</label>
                                                             <Button variant="secondary" data-parent='meta_settings' name='set_collection_filter' className="button text-sm">Set Collections for Collections Filter</Button>
                                                         </Form.Group>
                                                     </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col >
-                                                        <Form.Group className="mb-3" >
-                                                            <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_tags_filter} data-parent='meta_settings' name='show_tags_filter' type="checkbox" label="Show tags filter" onChange={(e) => {
-                                                                checkBoxData(e)
-                                                            }} />
-                                                            <p className="text-secondary text-sm">Allows customers to sort by product tags </p>
-                                                        </Form.Group>
-                                                    </Col>
+                                                    : null
+                                                }
+                                            </Row>
+                                            <Row>
+                                                <Col >
+                                                    <Form.Group className="mb-3" >
+                                                        <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_tags_filter} data-parent='meta_settings' name='show_tags_filter' type="checkbox" label="Show tags filter" onChange={(e) => {
+                                                            checkBoxData(e)
+                                                        }} />
+                                                        <p className="text-secondary text-sm">Allows customers to sort by product tags </p>
+                                                    </Form.Group>
+                                                </Col>
+                                                {formData?.meta_settings?.show_tags_filter ?
                                                     <Col >
                                                         <Form.Group className="mb-3">
                                                             <Col >
@@ -405,15 +441,15 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                                                     <p className="text-secondary text-sm">A comma-separated list of tags to show. If used, all other tags will be hidden. Please make sure to capitalize tags where necessary.</p>
                                                                 </Form.Group>
                                                             </Col>
-                                                            {/* <TextField change={FormsData} placeholder='e.g Bags, Shoes, Necklaces' label='Limit to these tags only (optional)' name='tags' type='text' description='A comma-separated list of tags to show. If used, all other tags will be hidden. Please make sure to capitalize tags where necessary.' /> */}
                                                         </Form.Group>
                                                     </Col>
-                                                </Row>
-                                            </div>
-                                        </Tab.Pane>
-                                    </Tab.Content>
-                                </Col>
-                            </Tab.Container>
+                                                    : null
+                                                }
+                                            </Row>
+                                        </div>
+                                    </Tab>
+                                </Tabs>
+                            </Col>
                             <div className="float-right">
                                 <Button variant="secondary" size="sm" onClick={() => handleResetCallback()}>Back</Button>
                                 <Button className="ml-2" variant="primary" size="sm" type="submit">Submit</Button>

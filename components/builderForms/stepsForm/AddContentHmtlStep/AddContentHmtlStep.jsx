@@ -139,7 +139,6 @@ You may need to be familiar with CSS to achieve a more advanced design. You can 
                                 <Form.Group className="mb-3" controlId="StepTitle">
                                     <Form.Label className="text-sm ">Step Title</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.title} required placeholder='e.g select your Hard Drive' name='title' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
                             <Col >
