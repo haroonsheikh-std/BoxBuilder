@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import api from '../../../api/index'
 import builderSettingsData from '../../../constants/defaultData.js'
 import { LoaderProvider, useLoading } from '@agney/react-loading';
+import PermitPopup from "../../modals/permitPopup/PermitPopup"
 
 const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 
@@ -118,7 +119,7 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <hr />
                 <ThemeBuilders  checkBoxData={checkBoxData} FormsData={FormsData} />
                 <div className="float-right mt-5">
-                    <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Exit/Update</Button>
+                <PermitPopup/>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => {
                         submitForm()
                     }} >{indicatorEl ? 

@@ -68,6 +68,7 @@ const Home = () => {
     ]
 
     return (
+     
         <div className='bg-light' style={{ height: '100vh' }}>
             <div style={{ padding: "8% 14%" }} className='px-15 py-6'>
                 <div className='head'>
@@ -82,7 +83,7 @@ const Home = () => {
                 </div>
                 <div style={{ margin: '0 0 20px 19px'}}>
                     <Link href={'/#'}>
-                    <button type="button" className="btn btn-outline-success btn-lg">Create A New Builder</button>
+                    <button type="button" className="btn btn-outline-secondary btn-lg">Create Builder</button>
                     </Link>
                     </div>
                 <div>
@@ -107,6 +108,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
+        
     )
 }
 
