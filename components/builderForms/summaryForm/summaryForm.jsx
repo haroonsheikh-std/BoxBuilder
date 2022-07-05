@@ -29,7 +29,7 @@ const SummaryForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 
                     <Col className="ml-3 p-3 border-t-4" style={{ borderTop: ' 3px solid green', backgroundColor: '#eff7ed' }}>
                         <div>
-                            <h6 className="d-inline-block ">You can now view your builder on your store.</h6>
+                            <h6 className="d-inline-block">You can now view your builder on your store.</h6>
                             <div className="text-secondary" style={{ fontSize: '13px' }}>
                                 <p >In order to get your customers loading the builder, you will need to direct them to this same link.</p>
                                 <p>You can copy this link by using the button below.</p>
@@ -42,13 +42,12 @@ const SummaryForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                     </Col>
                 </Row>
                 <div className="float-right mt-5">
-                    <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Previous</Button>
-                    <Button variant="outline-primary ml-2" size="sm" onClick={() => { moveToNext(stepNo) }} >
-                        <Link href={'/HomeScreen'}>Save</Link>
-                    </Button>
+                    <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }}>Previous</Button>
+                    <Link href={'/HomeScreen'}><Button variant="outline-primary ml-2" size="sm" onClick={() => { moveToNext(stepNo) }}>
+                    Save
+                    </Button></Link>
                 </div>
             </div>
-
         </>
     )
 }

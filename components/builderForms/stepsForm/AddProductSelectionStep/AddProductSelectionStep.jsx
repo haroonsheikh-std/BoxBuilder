@@ -11,6 +11,7 @@ import api from "../../../../api/index";
 import InformationCard from '../../../widgets/infoCard'
 import PickCollectionsModal from '../../../modals/pickCollections/pickCollection'
 import AddProductsModal from '../../../modals/AddProductsModal/addProductsModal'
+import { LoaderProvider, useLoading } from '@agney/react-loading';
 
 const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
     const [isEdit, setIsEdit] = useState(currentEditObject && currentEditObject != '' ? true : false)
@@ -20,6 +21,11 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
     const [isProductsModal, setIsProductsModal] = useState(false)
     const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState(isEdit ? currentEditObject : initialValues);
+
+    const [load, setLoad] = useState(false)
+    const { containerProps, indicatorEl } = useLoading({
+        loading: load,
+    });
 
     const ProductsModal = () => {
         setIsProductsModal(false);
@@ -453,6 +459,20 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                             <div className="float-right">
                                 <Button variant="secondary" size="sm" onClick={() => handleResetCallback()}>Back</Button>
                                 <Button className="ml-2" variant="primary" size="sm" type="submit">Submit</Button>
+
+                                {/* <Button className="ml-2" variant="primary" size="sm" type="submit">{indicatorEl ? 
+                    <>
+                    <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />
+                    Loading...
+                    </>
+                    : "Submit"}</Button> */}
+
                             </div>
 
                         </Form>

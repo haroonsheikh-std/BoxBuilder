@@ -9,23 +9,8 @@ const AddDiscounts = () => {
     const [selectedItem, setSetlectedItem] = useState(false)
     const [search, setSearch] = useState()
     const [storeDiscountsList, setStoreDiscountsList] = useState()
-    // const [storeDiscountsList, setStoreDiscountsList] = useState()
-    const [filteredData, setFilteredData] = useState()
-    const [loading, setLoading] = useState(false)
-
-    const deleteDiscounts = async (id) => {
-        setLoading(true)
-        await api.AddDiscounts.deleteDiscounts(id).then(() => {
-            getSteps().then(() => setLoading(false))
-        })
-    }
-
-    const getSteps = async () => {
-        await api.AddDiscounts.getDiscounts().then((response) => {
-            setStoreDiscountsList(response.data)
-            setFilteredData(response.data)
-        }).catch((err) => err ? setLoading(false) : null)
-    }
+    const [loading, setLoading] = useState(false);
+    // const [setSetlectedItem]
 
     useEffect(() => {
         api.AddDiscounts.getDiscounts().then((res) => {
