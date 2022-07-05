@@ -2,11 +2,14 @@ import { useEffect, useState } from "react"
 import { Form, Button, Row, Col, Dropdown, Table } from "react-bootstrap"
 import DataTable from 'react-data-table-component'
 import api from "../../../../api"
+import EditIcon from "../../../../assets/svgIcons/editIcon"
+import DeleteIcon from "../../../../assets/svgIcons/deleteIcon"
 
 const AddDiscounts = () => {
     const [selectedItem, setSetlectedItem] = useState(false)
     const [search, setSearch] = useState()
     const [storeDiscountsList, setStoreDiscountsList] = useState()
+    const [loading, setLoading] = useState(false);
     // const [setSetlectedItem]
 
     useEffect(() => {

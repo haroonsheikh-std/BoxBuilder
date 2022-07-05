@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Form, Button, Row, Col, Dropdown, Modal } from "react-bootstrap"
 import api from '../../../../api/index'
 import { dicountFormData } from '../../../../constants/defaultData'
+import { LoaderProvider, useLoading } from '@agney/react-loading';
 
 const DiscountModals = () => {
     const [lgShow, setLgShow] = useState(false);
@@ -13,6 +14,10 @@ const DiscountModals = () => {
     const [discountTitle, setDiscountTitle] = useState()
     const [applyAfter, setApplyAfter] = useState()
     const [onOrder, setOnOrder] = useState()
+    const [load, setLoad] = useState(false)
+    const { containerProps, indicatorEl } = useLoading({
+        loading: load,
+    });
 
     const handleSubmit = (e) => {
         const form = e.currentTarget;
@@ -91,7 +96,7 @@ const DiscountModals = () => {
                 <Modal.Header closeButton>
                     <Modal.Title>Add a Discount</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="cus-Overflow">
                     <Form noValidate validated id="DiscountModal" onSubmit={(e) => handleSubmit(e)}>
                         <Form.Group className="mb-3" controlId="title">
                             <Form.Label className="text-sm ">Discount Title</Form.Label>
@@ -181,7 +186,21 @@ const DiscountModals = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button type="submit" form="DiscountModal" variant="primary"> Add Discount</Button>
+                    <Button type="submit" form="DiscountModal" variant="primary">
+                    {indicatorEl ? 
+                    <>
+                    <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />
+                    Loading...
+                    </>
+                    : "Next"}
+                        
+                         Add Discount</Button>
                 </Modal.Footer>
             </Modal>
         </>
