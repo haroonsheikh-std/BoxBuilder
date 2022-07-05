@@ -1,13 +1,31 @@
 import { useEffect, useState } from "react"
-import { Form, Button, Row, Col, Dropdown, Table } from "react-bootstrap"
+import { Form, Button, Row, Col,Spinner, Dropdown, Table } from "react-bootstrap"
 import DataTable from 'react-data-table-component'
 import api from "../../../../api"
+import EditIcon from "../../../../assets/svgIcons/editIcon"
+import DeleteIcon from "../../../../assets/svgIcons/deleteIcon"
 
 const AddDiscounts = () => {
     const [selectedItem, setSetlectedItem] = useState(false)
     const [search, setSearch] = useState()
     const [storeDiscountsList, setStoreDiscountsList] = useState()
-    // const [setSetlectedItem]
+    // const [storeDiscountsList, setStoreDiscountsList] = useState()
+    const [filteredData, setFilteredData] = useState()
+    const [loading, setLoading] = useState(false)
+
+    const deleteDiscounts = async (id) => {
+        setLoading(true)
+        await api.AddDiscounts.deleteDiscounts(id).then(() => {
+            getSteps().then(() => setLoading(false))
+        })
+    }
+
+    const getSteps = async () => {
+        await api.AddDiscounts.getDiscounts().then((response) => {
+            setStoreDiscountsList(response.data)
+            setFilteredData(response.data)
+        }).catch((err) => err ? setLoading(false) : null)
+    }
 
     useEffect(() => {
         api.AddDiscounts.getDiscounts().then((res) => {
@@ -36,7 +54,7 @@ const AddDiscounts = () => {
             cell: (row) => (
                 <Button size="sm" variant="danger" onClick={() => {
                     setSetlectedItem(row.id)
-                    deleteSteps(row.id)
+                    deleteDiscounts(row.id)
                 }
                 }>
                     {loading && selectedItem == row.id ? <>
@@ -54,7 +72,7 @@ const AddDiscounts = () => {
     ]
 
     return (
-            <DataTable
+        <DataTable
             title="Discount Form"
             pagination
             fixedHeader

@@ -11,7 +11,7 @@ const BuilderSettings = ({ FormsData,checkBoxData }) => {
     // collapsData
     return (
         <Form id="builder_settings" onSubmit={() => { console.log('form Submitted') }}>
-            <Form.Group className="mb-3" controlId="formBasicEmail" >
+            <Form.Group className="mb-3" controlId="buildername" >
                 <Form.Label className="text-sm ">Builder Name</Form.Label>
                 <Form.Control required name='builder_name' value={builderName} onChange={(e) => { FormsData(e) }} type="text" placeholder="e.g. Build Your Custom Laptop" />
             </Form.Group>

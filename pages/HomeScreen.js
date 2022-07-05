@@ -3,11 +3,68 @@ import { LoaderProvider, useLoading, ThreeDots } from '@agney/react-loading';
 import LoaderScreen from '../components/loader'
 import InformationCard from '../components/widgets/infoCard';
 import { shopifyItems } from '../constants/constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component'
+import api from '../api'
+import DeleteIcon from '../assets/svgIcons/deleteIcon';
+import EditIcon from '../assets/svgIcons/editIcon';
+import { Form, Button, Row, Col, Spinner, Dropdown, Table } from "react-bootstrap"
 
 const Home = () => {
+    
     const [search, setSearch] = useState()
+    const [data, setData] = useState(null)
+    const [selectedItem, setSetlectedItem] = useState()
+    const [loading, setLoading] = useState()
+
+    useEffect(() => {
+        api.BuilderSettings.getBuilderSettings().then((res) => {
+            setData(res.data)
+        })
+    }, [])
+
+    const deleteDiscounts = async (id) => {
+        await api.BuilderSettings.deleteBuilderSettings(id).then(() => {
+            // updateBuilders()
+        })
+    }
+
+    const columns = [
+        {
+            name: "Builder",
+            selector: (row) => row.builder_name,
+            sortable: true
+        },
+        {
+            name: "Edit",
+            cell: (row) => (
+                <Button variant="dark" onClick={() => {
+                    // setCurrentEditObject(row)
+                    // setAddProductSelectionStep(true)
+                }}><EditIcon /></Button>
+            )
+        },
+        {
+            name: "Delete",
+            cell: (row) => (
+                <Button size="sm" variant="danger" onClick={() => {
+                    setSetlectedItem(row.id)
+                    deleteDiscounts(row.id)
+                }
+                }>
+                    {loading && selectedItem == row.id ? <>
+                        <Spinner
+                            as="span"
+                            animation="grow"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />Loading...</>
+                        : <DeleteIcon />}
+                </Button>
+            )
+        },
+    ]
 
     return (
         <div className='bg-light' style={{ height: '100vh' }}>
@@ -20,9 +77,9 @@ const Home = () => {
                 <div className='main-card'>
                     <InformationCard heading={'Which Builder Type should you use?'} description={'We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits.'} />
                 </div>
-                {/* <div>
+                <div>
                     <DataTable
-                        title="Discount Form"
+                        title="My Builders"
                         pagination
                         fixedHeader
                         highlightOnHover
@@ -33,12 +90,13 @@ const Home = () => {
                         columns={columns}
                         actions={
                             <>
-                                <span className="mx-2">Total:&nbsp;{shopifyItems?.Products?.length ?? "0"}</span>
+                                <span className="mx-2 font-bold " style={{fontSize:"0.8em"}}>Total:&nbsp;{data?.length ?? "0"}</span>
+                                <Button size='sm' variant='secondary' >Export All Recent Orders</Button>
                             </>
                         }
-                        data={shopifyItems?.Products?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
+                        data={data?.filter((d) => d.builder_name?.toLowerCase().match(search?.toLowerCase()))}
                     />
-                </div> */}
+                </div>
             </div>
         </div>
     )

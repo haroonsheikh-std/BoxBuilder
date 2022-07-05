@@ -1,5 +1,6 @@
 const builderSettingsData = {
     display_settings: {
+        show_selected_item_in_footer: false,
         enable_image_lightbox: false,
         show_price_button: false,
         show_formated_description: false,
@@ -89,7 +90,7 @@ export const dicountFormData = {
     encourage_discount: false,
     remove_previous_discounts: false,
     order: 0,
-    BuilderSettings: "11",
+    builder_settings: "1",
 }
 
 export default builderSettingsData
