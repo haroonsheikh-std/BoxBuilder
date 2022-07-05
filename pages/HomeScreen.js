@@ -9,6 +9,7 @@ import api from '../api'
 import DeleteIcon from '../assets/svgIcons/deleteIcon';
 import EditIcon from '../assets/svgIcons/editIcon';
 import { Form, Button, Row, Col, Spinner, Dropdown, Table } from "react-bootstrap"
+import Link from 'next/link';
 
 const Home = () => {
     
@@ -75,8 +76,15 @@ const Home = () => {
                     <hr />
                 </div>
                 <div className='main-card'>
-                    <InformationCard heading={'Which Builder Type should you use?'} description={'We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits.'} />
+                    <InformationCard
+                    heading={'Which Builder Type should you use?'} 
+                    description={'We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits.'} />
                 </div>
+                <div style={{ margin: '0 0 20px 19px'}}>
+                    <Link href={'/#'}>
+                    <button type="button" className="btn btn-outline-success btn-lg">Create A New Builder</button>
+                    </Link>
+                    </div>
                 <div>
                     <DataTable
                         title="My Builders"

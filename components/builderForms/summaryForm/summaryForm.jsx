@@ -42,7 +42,6 @@ const SummaryForm = ({ moveToNext, stepNo, moveToPrevious }) => {
 
 
 
-
                     </Col>
                 </Row>
                 <div className="float-right mt-5">

@@ -1,5 +1,5 @@
 import img1 from '../assets/pexels-artem-beliaikin-853199.jpg'
-export const BASE_URL = 'https://923b-54-146-232-65.ngrok.io/api/';
+export const BASE_URL = 'https://97cb-54-146-232-65.ngrok.io/api/';
 
 export const shopifyItems = {
     "Collections": [
