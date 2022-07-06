@@ -96,24 +96,25 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                     />
                     <hr />
                     <div className="table_wrapper">
-                        <DataTable
-                            title="Steps Form"
-                            pagination
-                            fixedHeader
-                            highlightOnHover
-                            // fixedHeaderScrollHeight="450px"
-                            subHeader
-                            subHeaderComponent={
-                                <input type='text' placeholder="Search here" value={search} onChange={(e) => setSearch(e.target.value)} className='w-25 form-control' />
-                            }
-                            columns={columns}
-                            actions={
-                                <>
-                                    <span className="mx-2">Total:&nbsp;{storeStepsList?.length ?? "0"}</span>
-                                </>
-                            }
-                            data={storeStepsList?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
-                        />
+                    
+                    <DataTable
+                    title="Steps Form"
+                    pagination
+                    fixedHeader
+                    highlightOnHover
+                    // fixedHeaderScrollHeight="450px"
+                    subHeader
+                    subHeaderComponent={
+                        <input type='text' placeholder="Search here" value={search} onChange={(e) => setSearch(e.target.value)} className='w-25 form-control' />
+                    }
+                    columns={columns}
+                    actions={
+                        <>
+                            <span className="mx-2">Total:&nbsp;{storeStepsList?.length ?? "0"}</span>
+                        </>
+                    }
+                    data={storeStepsList?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
+                /> 
                     </div>
 
                     <div className="p-2">
