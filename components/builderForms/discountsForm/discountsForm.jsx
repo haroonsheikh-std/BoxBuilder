@@ -1,14 +1,73 @@
-import { Button } from "react-bootstrap"
 import AddDiscounts from "./addDiscount/addDiscount"
-import DiscountModals from "./discountModal/discountModal"
 import { useEffect, useState } from "react"
+import { Form, Button, Row, Col, Spinner, Dropdown, Table } from "react-bootstrap"
+import DataTable from 'react-data-table-component'
+import EditIcon from "../../../assets/svgIcons/editIcon"
+import DeleteIcon from "../../../assets/svgIcons/deleteIcon"
+import DiscountModals from "./discountModal/discountModal"
 import { dicountFormData } from '../../../constants/defaultData'
 import api from '../../../api/index'
 
 const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
+    const [editAbleObject, setEditAbleObject] = useState()
+    const [selectedItem, setSetlectedItem] = useState()
+    const [search, setSearch] = useState()
+    const [storeDiscountsList, setStoreDiscountsList] = useState()
+    const [loading, setLoading] = useState(false);
+
+    const getDiscounts = async () => {
+        await api.AddDiscounts.getDiscounts().then((res) => {
+            console.log(res?.data);
+            setStoreDiscountsList(res?.data)
+        })
+    }
+
     useEffect(() => {
+        getDiscounts()
         api.Shopify.getShopifyList().then((res) => console.log(res?.data))
-    })
+    }, [])
+
+
+    const deleteDiscounts = async (id) => {
+        setLoading(true)
+        await api.AddDiscounts.deleteDiscounts(id).then(() => {
+            getDiscounts().then(() => setLoading(false))
+        })
+    }
+
+    const columns = [
+        {
+            name: "Title",
+            selector: (row) => row.title,
+            sortable: true
+        },
+        {
+            name: "Edit",
+            cell: (row) => (
+                <Button variant="dark" onClick={() => {
+                    console.log(row);
+                    setEditAbleObject(row)
+                    // setCurrentEditObject(row)
+                    // setAddProductSelectionStep(true)
+                }}><EditIcon /></Button>
+            )
+        },
+        {
+            name: "Delete",
+            cell: (row) => (
+                <Button size="sm" variant="danger" onClick={() => {
+                    setSetlectedItem(row.id)
+                    deleteDiscounts(row.id)
+                }
+                }>
+                    {loading && selectedItem == row?.id ?
+                        <Spinner size="sm" animation="border" variant="light" />
+                        : <DeleteIcon />}
+                </Button>
+            )
+        },
+    ]
+
     return (
         <>
             <div className="wrapper">
@@ -17,9 +76,28 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 </div>
                 <br></br>
                 <br></br>
-                <AddDiscounts />
+                <div className="discount_details">
+                    <DataTable
+                        title="Discount Form"
+                        pagination
+                        fixedHeader
+                        highlightOnHover
+                        subHeader
+                        subHeaderComponent={
+                            <input type='text' placeholder="Search here" value={search} onChange={(e) => setSearch(e.target.value)} className='w-25 form-control' />
+                        }
+                        columns={columns}
+                        actions={
+                            <>
+                                <span className="mx-2">Total:&nbsp;{storeDiscountsList?.length ?? "0"}</span>
+                            </>
+                        }
+                        data={storeDiscountsList?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
+                    />
+                </div>
+                {/* <AddDiscounts /> */}
                 <hr />
-                <DiscountModals />
+                <DiscountModals getDiscounts={getDiscounts} editAbleObject={editAbleObject} />
                 <div className="float-right mt-5">
                     <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Previous</Button>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => { moveToNext(stepNo) }} >Finish</Button>

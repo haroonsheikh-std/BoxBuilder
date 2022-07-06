@@ -4,7 +4,7 @@ import api from '../../../../api/index'
 import { dicountFormData } from '../../../../constants/defaultData'
 import { LoaderProvider, useLoading } from '@agney/react-loading';
 
-const DiscountModals = () => {
+const DiscountModals = ({editAbleObject,getDiscounts}) => {
     const [lgShow, setLgShow] = useState(false);
     const handleClose = () => setLgShow(false);
     const [formData, setFormData] = useState(dicountFormData);
@@ -36,6 +36,7 @@ const DiscountModals = () => {
 
     const submitForm = async () => {
         await api.AddDiscounts.createDiscounts(formData).then(() => {
+            getDiscounts()
             handleClose()
         })
     }
@@ -187,20 +188,8 @@ const DiscountModals = () => {
                         Cancel
                     </Button>
                     <Button type="submit" form="DiscountModal" variant="primary">
-                    {indicatorEl ? 
-                    <>
-                    <Spinner
-                        as="span"
-                        animation="grow"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
-                    Loading...
-                    </>
-                    : "Next"}
-                        
-                         Add Discount</Button>
+                        Add Discount
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </>

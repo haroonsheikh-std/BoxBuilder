@@ -291,7 +291,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                             <InformationCard heading='Link a collection to products you wish to show' description='Products with no collections will not show. If you have products like this, simply create a collection and attach all products before completing this step.' />
                             <Col>
                                 <Tabs defaultActiveKey="useCollection" id="uncontrolled-tab-example" className="mb-3">
-                                    <Tab eventKey="useCollection" title="Home">
+                                    <Tab eventKey="useCollection" title="Use Collection">
                                         <div className="mt-4">
                                             <Button onClick={() => setIsCollectionsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Pick Collection</Button>
                                             {showCollectionsData ?
@@ -369,7 +369,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                             </Row>
                                         </div>
                                     </Tab>
-                                    <Tab eventKey="useSelectedProducts" title="Profile">
+                                    <Tab eventKey="useSelectedProducts" title="Use Selected products">
                                         <div className="mt-4">
                                             <Col>
                                                 <Button onClick={() => setIsProductsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Add more steps</Button>
@@ -459,22 +459,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                             <div className="float-right">
                                 <Button variant="secondary" size="sm" onClick={() => handleResetCallback()}>Back</Button>
                                 <Button className="ml-2" variant="primary" size="sm" type="submit">Submit</Button>
-
-                                {/* <Button className="ml-2" variant="primary" size="sm" type="submit">{indicatorEl ? 
-                    <>
-                    <Spinner
-                        as="span"
-                        animation="grow"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
-                    Loading...
-                    </>
-                    : "Submit"}</Button> */}
-
                             </div>
-
                         </Form>
                     )
                 }
