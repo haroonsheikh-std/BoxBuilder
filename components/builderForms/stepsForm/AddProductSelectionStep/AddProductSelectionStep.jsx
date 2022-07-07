@@ -282,7 +282,9 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                             <hr />
                             <Row>
                                 <Col className="ml-4">
-                                    <Button className="mr-2" style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Choose Selectable products for this Step</Button>
+                                <button type="button" className="btn btn-outline-secondary btn-sm">
+                            Choose Selectable products for this Step</button>
+                                    {/* <Button className="mr-2" style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Choose Selectable products for this Step</Button> */}
                                 </Col>
                             </Row>
                             <InformationCard heading='Link a collection to products you wish to show' description='Products with no collections will not show. If you have products like this, simply create a collection and attach all products before completing this step.' />
@@ -290,7 +292,9 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                 <Tabs defaultActiveKey="useCollection" id="uncontrolled-tab-example" className="mb-3">
                                     <Tab eventKey="useCollection" title="Use Collection">
                                         <div className="mt-4">
-                                            <Button onClick={() => setIsCollectionsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Pick Collection</Button>
+                                            {/* <Button onClick={() => setIsCollectionsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Pick Collection</Button> */}
+                                            <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => setIsCollectionsModal(true)}>
+                                            Pick Collection</button>
                                             {showCollectionsData ?
                                                 <div className="d-flex-inline bg_hover my-2 p-2">
                                                     <img className="d-inline-block mx-2 rounded w-14 mb-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgolBdeaXdt7hZ4G28YiA8shOCg4jkBg08uA&usqp=CAU" alt="Dog" />
@@ -369,7 +373,11 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                     <Tab eventKey="useSelectedProducts" title="Use Selected products">
                                         <div className="mt-4">
                                             <Col>
-                                                <Button onClick={() => setIsProductsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Add more steps</Button>
+                                                {/* <Button onClick={() => setIsProductsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Add more steps</Button> */}
+                                                <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => setIsProductsModal(true)}>
+                                                Add more steps
+                            </button>
+                                               
                                                 {showProductData ?
                                                     showProductData?.map((data, index) => {
                                                         return (
