@@ -1,4 +1,4 @@
-import { Button, Alert, Table, Col, InputGroup, Label, Tabs, Tab, Nav, Form, Row } from "react-bootstrap"
+import { Button, Alert, Table, Col, InputGroup, Label,Spinner, Tabs, Tab, Nav, Form, Row } from "react-bootstrap"
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import initialValues from './initialValues'
@@ -11,7 +11,6 @@ import api from "../../../../api/index";
 import InformationCard from '../../../widgets/infoCard'
 import PickCollectionsModal from '../../../modals/pickCollections/pickCollection'
 import AddProductsModal from '../../../modals/AddProductsModal/addProductsModal'
-import { LoaderProvider, useLoading } from '@agney/react-loading';
 
 const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
     const [isEdit, setIsEdit] = useState(currentEditObject && currentEditObject != '' ? true : false)
@@ -20,12 +19,8 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
     const [isCollectionsModal, setIsCollectionsModal] = useState(false)
     const [isProductsModal, setIsProductsModal] = useState(false)
     const [validated, setValidated] = useState(false);
+    const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState(isEdit ? currentEditObject : initialValues);
-
-    const [load, setLoad] = useState(false)
-    const { containerProps, indicatorEl } = useLoading({
-        loading: load,
-    });
 
     const ProductsModal = () => {
         setIsProductsModal(false);
@@ -36,19 +31,22 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
     console.log(isEdit, currentEditObject);
     const SubmitForm = async () => {
         if (isEdit) {
+            setLoading(true)
             await api.StepsForm.editBuilderSteps(currentEditObject?.id, formData).then(() => {
                 getSteps()
                 handleResetCallback()
+                setLoading(false)
             })
         } else {
+            setLoading(true)
             await api.StepsForm.createBuilderSteps(formData).then((res) => {
-                console.log('res', res.data);
                 if (res != null) {
                     getSteps()
                     handleResetCallback()
                 } else {
                     console.log('error ==>', res)
                 }
+                setLoading(false)
             })
         }
         setIsEdit(false)
@@ -69,7 +67,6 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
             console.log('submitted....');
             SubmitForm()
         }
-
         setValidated(true);
     };
 
@@ -268,7 +265,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                         defaultChecked
                                         onChange={(e) => { radioButtonData(e); }}
                                     />
-                                    <p className="text-secondary text-sm">Each variant will have it's own item available for selection. </p>
+                                    <p className="text-secondary text-sm">Each variant will have its own item available for selection. </p>
                                 </Col>
                                 <Col>
                                     <Form.Check
@@ -458,7 +455,12 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                             </Col>
                             <div className="float-right">
                                 <Button variant="secondary" size="sm" onClick={() => handleResetCallback()}>Back</Button>
-                                <Button className="ml-2" variant="primary" size="sm" type="submit">Submit</Button>
+                                <Button className="ml-2" variant="primary" size="sm" type="submit">
+                                    {loading ?
+                                        <Spinner size="sm" animation="border" variant="light" />
+                                        : 'Submit'
+                                    }
+                                </Button>
                             </div>
                         </Form>
                     )

@@ -9,9 +9,10 @@ import { dicountFormData } from '../../../constants/defaultData'
 import api from '../../../api/index'
 
 const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
-    const [editAbleObject, setEditAbleObject] = useState()
+    const [editAbleObject, setEditAbleObject] = useState(null)
     const [selectedItem, setSetlectedItem] = useState()
     const [search, setSearch] = useState()
+    const [lgShow, setLgShow] = useState(false);
     const [storeDiscountsList, setStoreDiscountsList] = useState()
     const [loading, setLoading] = useState(false);
 
@@ -20,6 +21,9 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
             console.log(res?.data);
             setStoreDiscountsList(res?.data)
         })
+    }
+    const handleModalClose = () => {
+        setLgShow(false)
     }
 
     useEffect(() => {
@@ -31,7 +35,8 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     const deleteDiscounts = async (id) => {
         setLoading(true)
         await api.AddDiscounts.deleteDiscounts(id).then(() => {
-            getDiscounts().then(() => setLoading(false))
+            getDiscounts()
+            setLoading(false)
         })
     }
 
@@ -47,6 +52,7 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <Button variant="dark" onClick={() => {
                     console.log(row);
                     setEditAbleObject(row)
+                    setLgShow(true)
                     // setCurrentEditObject(row)
                     // setAddProductSelectionStep(true)
                 }}><EditIcon /></Button>
@@ -97,7 +103,15 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 </div>
                 {/* <AddDiscounts /> */}
                 <hr />
-                <DiscountModals getDiscounts={getDiscounts} editAbleObject={editAbleObject} />
+                <div>
+                    <Button variant="outline-secondary" onClick={() => {
+                        setEditAbleObject(null)
+                        setLgShow(true)
+                    }}>
+                        Add a Discount
+                    </Button>
+                </div>
+                <DiscountModals lgShow={lgShow} handleModalClose={handleModalClose} getDiscounts={getDiscounts} editAbleObject={editAbleObject} />
                 <div className="float-right mt-5">
                     <Button variant="outline-danger" size="sm" onClick={() => { moveToPrevious(stepNo) }} >Previous</Button>
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => { moveToNext(stepNo) }} >Finish</Button>

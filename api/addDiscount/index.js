@@ -6,8 +6,8 @@ export const createDiscounts = async (object) => {
     return await resolve(axios.post(`${BASE_URL}discount/`,object).then(res => res.data));
 }
 
-export const editDiscounts = async (id) => {
-    return await resolve(axios.post(`${BASE_URL}discount/${id}/`,object).then(res => res.data));
+export const editDiscounts = async (id,object) => {
+    return await resolve(axios.put(`${BASE_URL}discount/${id}/`,object).then(res => res.data));
 }
 
 export const getDiscounts = async () => {
