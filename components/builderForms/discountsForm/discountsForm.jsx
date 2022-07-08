@@ -7,6 +7,7 @@ import DeleteIcon from "../../../assets/svgIcons/deleteIcon"
 import DiscountModals from "./discountModal/discountModal"
 import { dicountFormData } from '../../../constants/defaultData'
 import api from '../../../api/index'
+import TableSkeleton from "../../skeletons/tableSkeleton/TableSkeleton"
 
 const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
     const [editAbleObject, setEditAbleObject] = useState(null)
@@ -83,7 +84,10 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <br></br>
                 <br></br>
                 <div className="discount_details">
-                    <DataTable
+
+                    {
+                        storeDiscountsList ? 
+                        <DataTable
                         title="Discount Form"
                         pagination
                         fixedHeader
@@ -99,7 +103,9 @@ const DiscountsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                             </>
                         }
                         data={storeDiscountsList?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
-                    />
+                    /> : <TableSkeleton/>
+                    }
+                    
                 </div>
                 {/* <AddDiscounts /> */}
                 <hr />
