@@ -35,7 +35,7 @@ const InformationCard = ({ heading, description, bullets, btnText, handleShow })
                             }
 
                             {
-                                btnText ?  <button className="btn btn-outline-success" onClick={handleShow}>{btnText}</button> : ''
+                                btnText ?  <button className="btn btn-outline-secondary" onClick={handleShow}>{btnText}</button> : ''
                             }
                                   
 

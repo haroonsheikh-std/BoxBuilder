@@ -31,8 +31,8 @@ function FeatureModal({ modalState, handleClose }) {
         </Modal.Body>
         <Modal.Footer className=" d-flex justify-content-between text-sm">
           <div cclas style={{backgroundColor:"#9cf6e5",padding:'5px',borderRadius:'5px'}}>
-            {" "}
-            <b className="text-lg"> Total Price</b> :{" "}
+            
+            <b className="text-lg"> Total Price</b> :
             <span className="text-lg">10$</span>
           </div>
           <div>
