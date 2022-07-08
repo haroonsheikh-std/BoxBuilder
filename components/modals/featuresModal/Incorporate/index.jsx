@@ -13,7 +13,8 @@ const obj = {
     subtitle: "You are allowed to use advance products and search filters",
 }
 
-const Incorporate = () => {
+const Incorporate = ({ send }) => {
+
     const itemsNormal = {
         available: [
             {
@@ -44,9 +45,6 @@ const Incorporate = () => {
                 subtitle: "null",
                 updatedAt: "3 days ago",
             },
-        ],
-
-        assigned: [
             {
                 id: 5,
                 uuid: "52f9df20-9393-4c4d-b72c-7bfa4398a450",
@@ -67,7 +65,9 @@ const Incorporate = () => {
                 title: "Advance Filters",
                 subtitle: "You were allowed to use products and search filters",
                 updatedAt: "2 days ago",
-            },
+            }
+        ],
+        assigned: [
         ],
     };
 
@@ -105,6 +105,7 @@ const Incorporate = () => {
             removedElement
         );
         setItems(listCopy);
+        send(listCopy)
     };
 
     return (

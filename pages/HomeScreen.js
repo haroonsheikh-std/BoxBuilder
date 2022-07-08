@@ -22,6 +22,8 @@ import Link from "next/link";
 import TableSkeleton from "../components/skeletons/tableSkeleton/TableSkeleton";
 
 const Home = () => {
+
+  const [resultedObject, setResultedObject] = useState()
   const [search, setSearch] = useState();
   const [data, setData] = useState();
   const [selectedItem, setSetlectedItem] = useState();
@@ -34,6 +36,11 @@ const Home = () => {
       setData(res.data);
     });
   }, []);
+
+  const updateResultedObject = (obj) => {
+    console.log(obj);
+    setResultedObject(obj)
+  }
 
   console.log("data ==>", data)
 
@@ -94,12 +101,12 @@ const Home = () => {
   ];
 
 
-    const handleClose = () => {
-        setShow(false);
-    }
-    const handleShow = () => {
-        setShow(true);
-    }
+  const handleClose = () => {
+    setShow(false);
+  }
+  const handleShow = () => {
+    setShow(true);
+  }
 
   return (
     <div className="bg-light" style={{ height: "100vh" }}>
@@ -115,11 +122,11 @@ const Home = () => {
             description={
               "We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits."
             }
-            btnText = "Create Your Own Builder"
-          handleShow={handleShow}
+            btnText="Create Your Own Builder"
+            handleShow={handleShow}
           />
         </div>
-        <FeatureModal modalState={show} handleClose={handleClose}/>
+        <FeatureModal updateResultedObject={updateResultedObject} modalState={show} handleClose={handleClose} />
         <div style={{ margin: "0 0 20px 19px" }}>
           <Link href={"/#"}>
             <button type="button" className="btn btn-outline-secondary ">
