@@ -8,6 +8,7 @@ import DataTable from "react-data-table-component";
 import api from "../api";
 import DeleteIcon from "../assets/svgIcons/deleteIcon";
 import EditIcon from "../assets/svgIcons/editIcon";
+import FeaturesModal from "../components/modals/featuresModal/featuresModal";
 import {
   Form,
   Button,
@@ -32,7 +33,7 @@ const Home = () => {
     });
   }, []);
 
-  console.log("data ==>",data)
+  console.log("data ==>", data)
 
   const deleteDiscounts = async (id) => {
     await api.BuilderSettings.deleteBuilderSettings(id).then(() => {
@@ -105,6 +106,7 @@ const Home = () => {
               "We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits."
             }
           />
+          <FeaturesModal />
         </div>
         <div style={{ margin: "0 0 20px 19px" }}>
           <Link href={"/#"}>
@@ -114,39 +116,39 @@ const Home = () => {
           </Link>
         </div>
         <div>
-         {
-             data ?  <DataTable
-             title="My Builders"
-             pagination
-             fixedHeader
-             highlightOnHover
-             subHeader
-             subHeaderComponent={
-               <input
-                 type="text"
-                 placeholder="Search here"
-                 value={search}
-                 onChange={(e) => setSearch(e.target.value)}
-                 className="w-25 form-control"
-               />
-             }
-             columns={columns}
-             actions={
-               <>
-                 <span className="mx-2 font-bold " style={{ fontSize: "0.8em" }}>
-                   Total:&nbsp;{data?.length ?? "0"}
-                 </span>
-                 <Button size="sm" variant="secondary">
-                   Export All Recent Orders
-                 </Button>
-               </>
-             }
-             data={data?.filter((d) =>
-               d.builder_name?.toLowerCase().match(search?.toLowerCase())
-             )}
-           />
-           : <TableSkeleton/>
-         }
+          {
+            data ? <DataTable
+              title="My Builders"
+              pagination
+              fixedHeader
+              highlightOnHover
+              subHeader
+              subHeaderComponent={
+                <input
+                  type="text"
+                  placeholder="Search here"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-25 form-control"
+                />
+              }
+              columns={columns}
+              actions={
+                <>
+                  <span className="mx-2 font-bold " style={{ fontSize: "0.8em" }}>
+                    Total:&nbsp;{data?.length ?? "0"}
+                  </span>
+                  <Button size="sm" variant="secondary">
+                    Export All Recent Orders
+                  </Button>
+                </>
+              }
+              data={data?.filter((d) =>
+                d.builder_name?.toLowerCase().match(search?.toLowerCase())
+              )}
+            />
+              : <TableSkeleton />
+          }
         </div>
       </div>
     </div>

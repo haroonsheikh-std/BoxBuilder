@@ -2,7 +2,7 @@ import Layout from '../components/layout';
 
 const Home = () => {
   return (
-    <div className='bg-light' style={{height:'100vh'}}>
+    <div className='bg-light'>
       <Layout>
         <h1 className=" text-3xl  text-black-500">
           Design Your Builder
