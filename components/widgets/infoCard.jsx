@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Button, Alert, Table, Col, InputGroup, Form, Row } from "react-bootstrap"
 import InfoIcon from '../../assets/svgIcons/infoIcon'
-const InformationCard = ({ heading, description, bullets }) => {
+const InformationCard = ({ heading, description, bullets, btnText, handleShow }) => {
     const [desc, setDesc] = useState(description.split('.'))
     return (
         <>
@@ -33,6 +33,12 @@ const InformationCard = ({ heading, description, bullets }) => {
                                         {description}
                                     </p>
                             }
+
+                            {
+                                btnText ?  <button className="btn btn-outline-success" onClick={handleShow}>{btnText}</button> : ''
+                            }
+                                  
+
                         </Col>
                     </Row>
                 </Alert>

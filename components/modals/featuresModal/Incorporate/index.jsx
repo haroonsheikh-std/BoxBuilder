@@ -9,18 +9,6 @@ import {
 import { useState } from "react";
 
 const obj = {
-
-
-
-
-
-
-
-
-
-
-
-
     title: "Advance FIlters",
     subtitle: "You are allowed to use advance products and search filters",
 }

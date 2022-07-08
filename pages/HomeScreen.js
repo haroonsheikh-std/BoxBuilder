@@ -4,11 +4,11 @@ import LoaderScreen from "../components/loader";
 import InformationCard from "../components/widgets/infoCard";
 import { shopifyItems } from "../constants/constants";
 import { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import api from "../api";
+import DataTable from "react-data-table-component";
 import DeleteIcon from "../assets/svgIcons/deleteIcon";
 import EditIcon from "../assets/svgIcons/editIcon";
-import FeaturesModal from "../components/modals/featuresModal/featuresModal";
+import FeatureModal from '../components/modals/featuresModal/featuresModal'
 import {
   Form,
   Button,
@@ -26,6 +26,8 @@ const Home = () => {
   const [data, setData] = useState();
   const [selectedItem, setSetlectedItem] = useState();
   const [loading, setLoading] = useState();
+  const [show, setShow] = useState(false);
+
 
   useEffect(() => {
     api.BuilderSettings.getBuilderSettings().then((res) => {
@@ -91,6 +93,14 @@ const Home = () => {
     },
   ];
 
+
+    const handleClose = () => {
+        setShow(false);
+    }
+    const handleShow = () => {
+        setShow(true);
+    }
+
   return (
     <div className="bg-light" style={{ height: "100vh" }}>
       <div style={{ padding: "8% 14%" }} className="px-15 py-6">
@@ -105,9 +115,11 @@ const Home = () => {
             description={
               "We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits."
             }
+            btnText = "Create Your Own Builder"
+          handleShow={handleShow}
           />
-          <FeaturesModal />
         </div>
+        <FeatureModal modalState={show} handleClose={handleClose}/>
         <div style={{ margin: "0 0 20px 19px" }}>
           <Link href={"/#"}>
             <button type="button" className="btn btn-outline-secondary ">
