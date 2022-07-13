@@ -32,7 +32,6 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
         setAddSubscriptionStep(false)
         setAddPreProductSelectionStep(false)
     }
-
     const getSteps = async () => {
         await api.StepsForm.getBuilderSteps().then((response) => {
             setStoreStepsList(response.data)
@@ -46,8 +45,6 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
             getSteps().then(() => SetLoading(false))
         })
     }
-
-
     useEffect(() => {
         getSteps()
     }, [])
@@ -99,8 +96,7 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                     <div className="table_wrapper">
                     
                     {
-                        storeStepsList ? 
-
+                        storeStepsList ?
                         <DataTable
                         title="Steps Form"
                         pagination
@@ -119,6 +115,8 @@ const StepsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                         }
                         data={storeStepsList?.filter((d) => d.title?.toLowerCase().match(search?.toLowerCase()))}
                     /> : <TableSkeleton/>
+
+
 
                     }
                     </div>
