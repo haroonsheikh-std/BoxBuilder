@@ -8,7 +8,7 @@ import api from "../api";
 import DataTable from "react-data-table-component";
 import DeleteIcon from "../assets/svgIcons/deleteIcon";
 import EditIcon from "../assets/svgIcons/editIcon";
-import FeatureModal from '../components/modals/featuresModal/featuresModal'
+import FeatureModal from "../components/modals/featuresModal/featuresModal";
 import {
   Form,
   Button,
@@ -22,10 +22,12 @@ import Link from "next/link";
 import TableSkeleton from "../components/skeletons/tableSkeleton/TableSkeleton";
 
 const Home = () => {
+  const [AddedFeatures, setAddedFeatures] = useState();
   const [search, setSearch] = useState();
   const [data, setData] = useState();
   const [selectedItem, setSetlectedItem] = useState();
   const [loading, setLoading] = useState();
+  const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
     api.BuilderSettings.getBuilderSettings().then((res) => {
@@ -33,7 +35,20 @@ const Home = () => {
     });
   }, []);
 
-  console.log("data ==>", data)
+  const updateResultedObject = (obj) => {
+    console.log("obj", obj);
+    setAddedFeatures(obj);
+  };
+
+  console.log("data ==>", data);
+
+  const handleShow = () => {
+    setModalState(true);
+  };
+
+  const handleClose = () => {
+    setModalState(false);
+  };
 
   const deleteDiscounts = async (id) => {
     await api.BuilderSettings.deleteBuilderSettings(id).then(() => {
@@ -105,20 +120,25 @@ const Home = () => {
             description={
               "We now have some options for you when it comes to setting up your builders. Each Builder Type has its benefits."
             }
-            btnText = "Create Your Own Builder"
+            btnText="Create Your Own Builder"
+            handleShow={handleShow}
           />
         </div>
-       <FeatureModal/>
+        <FeatureModal
+          updateResultedObject={updateResultedObject}
+          modalState={modalState}
+          handleClose={handleClose}
+        />
         <div style={{ margin: "0 0 20px 19px" }}>
-          <Link href={"/#"}>
+          <Link href={"/"}>
             <button type="button" className="btn btn-outline-secondary ">
               Create Builder
             </button>
           </Link>
         </div>
         <div>
-          {
-            data ? <DataTable
+          {data ? (
+            <DataTable
               title="My Builders"
               pagination
               fixedHeader
@@ -136,7 +156,10 @@ const Home = () => {
               columns={columns}
               actions={
                 <>
-                  <span className="mx-2 font-bold " style={{ fontSize: "0.8em" }}>
+                  <span
+                    className="mx-2 font-bold "
+                    style={{ fontSize: "0.8em" }}
+                  >
                     Total:&nbsp;{data?.length ?? "0"}
                   </span>
                   <Button size="sm" variant="secondary">
@@ -148,8 +171,9 @@ const Home = () => {
                 d.builder_name?.toLowerCase().match(search?.toLowerCase())
               )}
             />
-              : <TableSkeleton />
-          }
+          ) : (
+            <TableSkeleton />
+          )}
         </div>
       </div>
     </div>
