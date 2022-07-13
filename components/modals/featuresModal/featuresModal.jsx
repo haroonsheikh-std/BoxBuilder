@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Form,
     Button,
@@ -12,11 +12,17 @@ import Incorporate from "./Incorporate/index";
 
 function FeatureModal({ updateResultedObject, modalState, handleClose }) {
     const [featuresObject, setFeaturesObject] = useState()
+    const [price, setPrice] = useState()
 
     const send = (obj) => {
         updateResultedObject(obj)
         setFeaturesObject(obj)
     }
+
+    useEffect(() => {
+        setPrice(featuresObject?.assigned?.length * 10)
+    }, [featuresObject])
+
     return (
         <>
             <Modal
@@ -39,7 +45,7 @@ function FeatureModal({ updateResultedObject, modalState, handleClose }) {
                     <div cclas style={{ backgroundColor: "#9cf6e5", padding: '5px', borderRadius: '5px' }}>
                         {" "}
                         <b className="text-lg"> Total Price</b> :{" "}
-                        <span className="text-lg">{featuresObject?.assigned?.length ?  featuresObject?.assigned?.length*10 : 0}$</span>
+                        <span className="text-lg">{price ? price  : 0}$</span>
                     </div>
                     <div>
                         <Button variant="secondary" onClick={handleClose}>

@@ -1,11 +1,10 @@
-import img1 from '../assets/pexels-artem-beliaikin-853199.jpg'
-export const BASE_URL = 'https://2cf6-54-146-232-65.ngrok.io/api/';
+export const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/`;
 
 export const shopifyItems = {
     "Collections": [
         {
             "id": 1,
-            "img": `${img1}`,
+            "img": `img1`,
             "name": "All Products",
             "description": "Products will load in the order defined in the collection"
         },
