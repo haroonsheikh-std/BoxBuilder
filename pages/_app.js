@@ -9,11 +9,11 @@ import store from '../redux/store/store';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
     <LoaderProvider indicator={<LoaderScreen />}>
+    <Provider store={store}>
       <Component {...pageProps} />
-    </LoaderProvider>
     </Provider>
+    </LoaderProvider>
   )
 }
 
