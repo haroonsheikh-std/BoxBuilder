@@ -37,6 +37,7 @@ function FeatureModal({ updateResultedObject, modalState, handleClose }) {
                     <Modal.Title>Create Your Own Customized Package</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="p-3">
+                    <p> <span><b>Note:</b></span> <span className="text-secondary">Add Features By Dragging and Dropping</span></p>
                     <div className="cus-Overflow">
                         <Incorporate send={send} />
                     </div>
@@ -45,7 +46,7 @@ function FeatureModal({ updateResultedObject, modalState, handleClose }) {
                     <div cclas style={{ backgroundColor: "#9cf6e5", padding: '5px', borderRadius: '5px' }}>
                         {" "}
                         <b className="text-lg"> Total Price</b> :{" "}
-                        <span className="text-lg">{price ? price  : 0}$</span>
+                        <span className="text-lg">{price ? price : 0}$</span>
                     </div>
                     <div>
                         <Button variant="secondary" onClick={handleClose}>

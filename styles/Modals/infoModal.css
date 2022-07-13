@@ -26,3 +26,12 @@
     height: 100%;
     z-index: 9999;
 }
+
+/*********************Gloabl Css**********************/
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border: 2.5px solid #0084ff !important;
+    /* border-color: #618db5 !important; */
+    box-shadow: none !important;
+}
