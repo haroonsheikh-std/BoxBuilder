@@ -178,13 +178,8 @@ const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject
                         </Row>
                         <Row>
                             <Col >
-<<<<<<< HEAD
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check requiredv className="text-sm" defaultChecked={editAbleObject?.remove_previous_discounts} name='remove_previous_discounts' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
-=======
-                                <Form.Group className="mb-3" controlId="remove_previous_discounts">
-                                    <Form.Check requiredv className="text-sm" defaultValue={editAbleObject?.remove_previous_discounts} name='remove_previous_discounts' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
->>>>>>> dev2
                                     <p className="text-secondary text-sm">If unchecked, this discount will be added to any other discounts that are applied earlier in the order.</p>
                                 </Form.Group>
                             </Col>
