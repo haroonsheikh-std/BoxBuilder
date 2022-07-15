@@ -48,7 +48,10 @@ const builderSettingsData = {
     start_price: 0,
     product_orders: false,
     keep_builder: false,
-    theme: {},
+    theme: {
+        full_width_with_fixed_bottom: true,
+        fixed_right_side_with_scroll: false
+    },
     custom_url_path: "",
     step: 1
 }
