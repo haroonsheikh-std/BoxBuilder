@@ -1,12 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Form, Button, Row, Col, Spinner, Dropdown, Modal } from "react-bootstrap"
 import api from '../../../../api/index'
 import { dicountFormData } from '../../../../constants/defaultData'
-import { LoaderProvider, useLoading } from '@agney/react-loading';
 
-const DiscountModals = ({ editAbleObject, lgShow, handleModalClose, getDiscounts }) => {
-    const [isEdit, setIsEdit] = useState(editAbleObject && editAbleObject != '' ? true : false)
-    const [formData, setFormData] = useState( editAbleObject);
+const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject }) => {
+    console.log('editAbleObject=>', editAbleObject);
+    const [isEdit, setIsEdit] = useState(editAbleObject ? true : false)
+    const [formData, setFormData] = useState(isEdit ? editAbleObject : dicountFormData)
     const [validated, setValidated] = useState(false);
     const [isEncourageDiscount, setIsEncourageDiscount] = useState()
     const [itemReached, setItemReached] = useState()
@@ -30,8 +30,14 @@ const DiscountModals = ({ editAbleObject, lgShow, handleModalClose, getDiscounts
         setValidated(true)
     }
 
+    useEffect(() => {
+        setIsEdit(editAbleObject && editAbleObject!=null ? true : false)
+        setFormData(isEdit ? editAbleObject : dicountFormData)
+    }, [editAbleObject])
+
     const submitForm = async () => {
         if (isEdit) {
+            console.log('edit.....');
             setLoading(true)
             await api.AddDiscounts.editDiscounts(editAbleObject?.id, formData).then(() => {
                 getDiscounts()
@@ -39,6 +45,7 @@ const DiscountModals = ({ editAbleObject, lgShow, handleModalClose, getDiscounts
                 setLoading(false)
             })
         } else {
+            console.log('addding new one');
             setLoading(true)
             await api.AddDiscounts.createDiscounts(formData).then(() => {
                 getDiscounts()
@@ -172,7 +179,7 @@ const DiscountModals = ({ editAbleObject, lgShow, handleModalClose, getDiscounts
                         <Row>
                             <Col >
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                    <Form.Check requiredv className="text-sm" defaultValue={editAbleObject?.remove_previous_discounts} name='remove_previous_discounts' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
+                                    <Form.Check requiredv className="text-sm" defaultChecked={editAbleObject?.remove_previous_discounts} name='remove_previous_discounts' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
                                     <p className="text-secondary text-sm">If unchecked, this discount will be added to any other discounts that are applied earlier in the order.</p>
                                 </Form.Group>
                             </Col>
