@@ -3,10 +3,16 @@ import { Form, Button, Row, Col, Spinner, Dropdown, Modal } from "react-bootstra
 import api from '../../../../api/index'
 import { dicountFormData } from '../../../../constants/defaultData'
 
+<<<<<<< HEAD
 const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject }) => {
     console.log('editAbleObject=>', editAbleObject);
     const [isEdit, setIsEdit] = useState(editAbleObject ? true : false)
     const [formData, setFormData] = useState(isEdit ? editAbleObject : dicountFormData)
+=======
+const DiscountModals = ({ editAbleObject, lgShow, handleModalClose, getDiscounts }) => {
+    const [isEdit, setIsEdit] = useState(editAbleObject ? true : false)
+    const [formData, setFormData] = useState( isEdit ?  editAbleObject : dicountFormData);
+>>>>>>> dev2
     const [validated, setValidated] = useState(false);
     const [isEncourageDiscount, setIsEncourageDiscount] = useState()
     const [itemReached, setItemReached] = useState()
@@ -114,14 +120,14 @@ const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject
                             <Form.Control required defaultValue={editAbleObject?.title} type="text" name="title" value={discountTitle} onChange={(e) => { FormsData(e) }} placeholder="e.g. 10% off 8 items or more" />
                             <p className="text-secondary text-sm">Customers will see this in the cart/checkout pages </p>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Group className="mb-3" controlId="type">
                             <Form.Label className="text-sm ">Discount Type</Form.Label>
                             <Form.Select defaultValue={editAbleObject?.type} name="type" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
                                 <option name="percentage" value="percentage">Percentage</option>
                                 <option name="fixed_amount" value="fixed_amount">Fixed Amount</option>
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Group className="mb-3" controlId="value">
                             <Form.Label className="text-sm ">Discount Amount %</Form.Label>
                             <Form.Control required defaultValue={editAbleObject?.value} name='value' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label="Amount" placeholder="e.g. 8" />
                             <p className="text-secondary text-sm">A percentage between 1-99</p>
@@ -130,7 +136,7 @@ const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject
 
                         <Row>
                             <Col >
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                <Form.Group className="mb-3" controlId="discount_criteria">
                                     <Form.Label className="text-sm ">Apply Discount When</Form.Label>
                                     <Form.Select defaultValue={editAbleObject?.discount_criteria} name="discount_criteria" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
                                         <option name="on_item" value="Number of items added">Number of items added</option>
@@ -139,13 +145,13 @@ const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject
                                 </Form.Group>
                             </Col>
                             <Col >
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                <Form.Group className="mb-3" controlId="items_required">
                                     <Form.Label className="text-sm ">Number of items required</Form.Label>
                                     <Form.Control defaultValue={editAbleObject?.items_required} required name='items_required' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label="Default value" placeholder="e.g. 10" />
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Group className="mb-3" controlId="apply_to">
                             <Form.Label className="text-sm ">Apply to a step or the whole builder</Form.Label>
                             <Form.Select defaultValue={editAbleObject?.apply_to} name="apply_to" onChange={(e) => { FormsData(e) }} aria-label="Default select example">
                                 <option name="whole_builder" value="whole_builder">Whole Builder</option>
@@ -156,7 +162,7 @@ const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject
                         </Form.Group>
                         <Row>
                             <Col >
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                <Form.Group className="mb-3" controlId="encourage_discount">
                                     <Form.Check className="text-sm" defaultChecked={editAbleObject?.encourage_discount} name='encourage_discount' type="checkbox" label="Encourage discount" onChange={(e) => {
                                         setIsEncourageDiscount(!isEncourageDiscount)
                                         checkBoxData(e)
@@ -167,7 +173,7 @@ const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject
                             {
                                 !isEncourageDiscount ?
                                     <Col >
-                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                        <Form.Group className="mb-3" controlId="encourage_when">
                                             <Form.Label className="text-sm ">Encourage when items selected reach</Form.Label>
                                             <Form.Control defaultValue={editAbleObject?.encourage_when} required value={itemReached} name='encourage_when' className="text-sm" onChange={(e) => { FormsData(e) }} type="number" placeholder="e.g. 15" label="Default value" />
                                             <p className="text-secondary text-sm">We will show a small popup when the item count or current price equals the amount you enter here.</p>
@@ -178,13 +184,18 @@ const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject
                         </Row>
                         <Row>
                             <Col >
+<<<<<<< HEAD
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check requiredv className="text-sm" defaultChecked={editAbleObject?.remove_previous_discounts} name='remove_previous_discounts' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
+=======
+                                <Form.Group className="mb-3" controlId="remove_previous_discounts">
+                                    <Form.Check requiredv className="text-sm" defaultValue={editAbleObject?.remove_previous_discounts} name='remove_previous_discounts' value={applyAfter} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Remove any discounts applied before this" />
+>>>>>>> dev2
                                     <p className="text-secondary text-sm">If unchecked, this discount will be added to any other discounts that are applied earlier in the order.</p>
                                 </Form.Group>
                             </Col>
                             <Col >
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                <Form.Group className="mb-3" controlId="order">
                                     <Form.Label className="text-sm ">Order</Form.Label>
                                     <Form.Control defaultValue={editAbleObject?.order} required value={onOrder} name='order' className="text-sm" onChange={(e) => { FormsData(e) }} type="number" placeholder="e.g. 1" label="Default value" />
                                     <p className="text-secondary text-sm">The order in which the discount is applied in case multiple discounts are added.</p>

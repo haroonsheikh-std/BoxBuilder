@@ -42,7 +42,7 @@ function PickCollectionsModal({ modalState, handleClose, Callback }) {
                 <Modal.Body className="text-sm ">
                     <div className="p-2">
                         <Col >
-                            <Form.Group className="mb-3" controlId="StepTitle">
+                            <Form.Group className="mb-3" controlId="title">
                                 <Form.Control placeholder=' seacrh collections' onChange={(e) => {handleSearch(e) }} name='title' className="text-sm" type="text" label="seacrh" />
                                 <p className="text-secondary text-sm">  </p>
                             </Form.Group>

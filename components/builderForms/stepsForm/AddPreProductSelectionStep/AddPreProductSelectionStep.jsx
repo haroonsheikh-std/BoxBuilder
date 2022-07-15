@@ -133,20 +133,20 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                              <p className="text-secondary text-sm">The products you choose here will show up as pre-selected and cannot be removed by the customer.</p>
                              <hr></hr>
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="title">
                                     <Form.Label className="text-sm ">Step Title</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.title} required placeholder='e.g select your Hard Drive' name='title' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
                                 </Form.Group>
                             </Col>
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="description">
                                     <Form.Label className="text-sm ">Step Description</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.description} required placeholder='e.g You cans select only one Hard Drive' name='description' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
                                     <p className="text-secondary text-sm"> Additional text to help the customer understand what's required from this step. </p>
                                 </Form.Group>
                             </Col>
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="short_title">
                                     <Form.Label className="text-sm ">Step Short Title</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.short_title} required placeholder='e.g Gift Box' name='short_title' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='Step Short Title' />
                                     <p className="text-secondary text-sm"> If you're using the step progress bar, you can add a shorter title for this step to show there. </p>
@@ -154,7 +154,7 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                             </Col>
                             <Row>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="DisplayOrder">
+                                    <Form.Group className="mb-3" controlId="display_order">
                                         <Form.Label className="text-sm ">Display Order</Form.Label>
                                         <Form.Control required defaultValue={currentEditObject?.display_order} placeholder='e.g 1' name='display_order' data-parent='meta_settings' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label='Display Order' />
                                         <p className="text-secondary text-sm">Set the order the step will display within this builder.</p>
@@ -170,14 +170,14 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                             </Row>
                             <Row>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="ButtonText">
+                                    <Form.Group className="mb-3" controlId="button_text">
                                         <Form.Label  className="text-sm ">Button Text</Form.Label>
                                         <Form.Control required placeholder='e.g Included' defaultValue={currentEditObject?.maximum_selection} data-parent='meta_settings' name='button_text' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='ButtonText' />
                                         <p className="text-secondary text-sm">Can the customer select more than 1 product on this step?</p>
                                     </Form.Group>
                                 </Col>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Group className="mb-3" controlId="show_prices">
                                         <Form.Check className="text-sm"  data-parent='meta_settings' name='show_prices' type="checkbox" label="Show Prices" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
@@ -189,7 +189,7 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                             </Row>
                             <Row>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Group className="mb-3" controlId="show_box_content_summary">
                                         <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_box_content_summary} data-parent='meta_settings' name='show_box_content_summary' type="checkbox" label="Show Box Contents/Summary" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
@@ -197,7 +197,7 @@ const AddPreProductSelectionStep = ({ getSteps, handleResetCallback, currentEdit
                                     </Form.Group>
                                 </Col>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Group className="mb-3" controlId="hide_from_step_progress">
                                         <Form.Check className="text-sm" data-parent='meta_settings' defaultChecked={currentEditObject?.meta_settings?.hide_from_step_progress} name='hide_from_step_progress' type="checkbox" label="Hide from Step Progress" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
