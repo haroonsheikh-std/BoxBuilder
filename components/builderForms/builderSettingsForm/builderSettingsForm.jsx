@@ -1,4 +1,4 @@
-import { Button, useForm,Spinner } from "react-bootstrap"
+import { Button, useForm, Col, Form, Spinner } from "react-bootstrap"
 import BuilderSettings from './buildersSetting/builderSetting'
 import OrderProduct from './orderProductSetting/orderProductSetting'
 import DisplaySettings from './displaySettings/displaySettings'
@@ -92,6 +92,37 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
         })
     }
 
+    const radioButtonData = (data) => {
+        let parent_obj_name = data.target.dataset.parent;
+        let input_name = data.target.name;
+        let input_value = data.target.checked;
+        let keyName = data.target.value;
+        console.log(keyName);
+        let res = (keyName == "full_width_with_fixed_bottom" ?
+            { full_width_with_fixed_bottom: true, fixed_right_side_with_scroll: false }
+            :
+            { full_width_with_fixed_bottom: false, fixed_right_side_with_scroll: true })
+
+        console.log(res);
+
+        setFormData((prev) => {
+            if (parent_obj_name) {
+                return {
+                    ...prev,
+                    [parent_obj_name]: {
+                        ...prev[parent_obj_name],
+                        ...res
+                    }
+                }
+            } else {
+                return {
+                    ...prev,
+                    [input_name]: input_value
+                }
+            }
+        })
+    }
+
     console.log(formData)
 
 
@@ -117,23 +148,36 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <hr />
                 <EditTranslation checkBoxData={checkBoxData} FormsData={FormsData} />
                 <hr />
-                <ThemeBuilders  checkBoxData={checkBoxData} FormsData={FormsData} />
+                <ThemeBuilders radioButtonData={radioButtonData} checkBoxData={checkBoxData} FormsData={FormsData} />
+                <hr />
+                <div className="footer_details">
+                    {
+                        formData?.theme?.full_width_with_fixed_bottom ?
+                            <div>
+                                <Col >
+                                    <Form.Group className="mb-3" controlId="show_selected_image_in_footer">
+                                        <Form.Check className="text-sm" name='show_selected_image_in_footer' onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Show images of selected items in the footer?" />
+                                        <p className="text-secondary text-sm">This only applies to the 'full' layout.</p>
+                                    </Form.Group>
+                                </Col>
+                            </div> : null}
+                </div>
                 <div className="float-right mt-5">
-                <PermitPopup/>
+                    <PermitPopup />
                     <Button variant="outline-primary ml-2" size="sm" onClick={() => {
                         submitForm()
-                    }} >{indicatorEl ? 
-                    <>
-                    <Spinner
-                        as="span"
-                        animation="grow"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
-                    Loading...
-                    </>
-                    : "Next"}</Button>
+                    }} >{indicatorEl ?
+                        <>
+                            <Spinner
+                                as="span"
+                                animation="grow"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            Loading...
+                        </>
+                        : "Next"}</Button>
                 </div>
             </div>
             {/* {indicatorEl ?

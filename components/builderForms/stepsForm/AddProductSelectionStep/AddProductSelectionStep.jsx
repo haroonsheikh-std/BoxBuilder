@@ -1,4 +1,4 @@
-import { Button, Alert, Table, Col, InputGroup, Label,Spinner, Tabs, Tab, Nav, Form, Row } from "react-bootstrap"
+import { Button, Alert, Table, Col, InputGroup, Label, Spinner, Tabs, Tab, Nav, Form, Row } from "react-bootstrap"
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import initialValues from './initialValues'
@@ -282,8 +282,9 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                             <hr />
                             <Row>
                                 <Col className="ml-4">
-                                <button type="button" className="btn btn-outline-secondary btn-sm">
-                            Choose Selectable products for this Step</button>
+                                    <button type="button" className="btn btn-outline-secondary btn-sm">
+                                        Choose Selectable products for this Step
+                                    </button>
                                     {/* <Button className="mr-2" style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Choose Selectable products for this Step</Button> */}
                                 </Col>
                             </Row>
@@ -294,7 +295,7 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                         <div className="mt-4">
                                             {/* <Button onClick={() => setIsCollectionsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Pick Collection</Button> */}
                                             <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => setIsCollectionsModal(true)}>
-                                            Pick Collection</button>
+                                                Pick Collection</button>
                                             {showCollectionsData ?
                                                 <div className="d-flex-inline bg_hover my-2 p-2">
                                                     <img className="d-inline-block mx-2 rounded w-14 mb-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgolBdeaXdt7hZ4G28YiA8shOCg4jkBg08uA&usqp=CAU" alt="Dog" />
@@ -375,9 +376,9 @@ const AddProductSelectionStep = ({ getSteps, handleResetCallback, currentEditObj
                                             <Col>
                                                 {/* <Button onClick={() => setIsProductsModal(true)} style={{ backgroundColor: "#f0f2f4", color: "black", border: 'none', fontSize: "12px" }} >Add more steps</Button> */}
                                                 <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => setIsProductsModal(true)}>
-                                                Add more steps
-                            </button>
-                                               
+                                                    Add more steps
+                                                </button>
+
                                                 {showProductData ?
                                                     showProductData?.map((data, index) => {
                                                         return (

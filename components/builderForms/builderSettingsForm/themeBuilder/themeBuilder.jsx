@@ -8,7 +8,7 @@ import {
   Accordion,
   Image,
 } from "react-bootstrap";
-const ThemeBuilders = ({ FormsData, checkBoxData }) => {
+const ThemeBuilders = ({ FormsData, checkBoxData, radioButtonData }) => {
   return (
     <>
       {/* <Form>  */}
@@ -21,10 +21,11 @@ const ThemeBuilders = ({ FormsData, checkBoxData }) => {
             type="radio"
             label="Full width with fixed bottom pricing bar"
             id="fullWidth"
-            name="builderTheme"
-            value="fullWidth"
+            name="builder_theme_variant"
+            value={'full_width_with_fixed_bottom'}
+            data-parent='theme'
             onChange={(e) => {
-              FormsData(e);
+              radioButtonData(e);
             }}
           />
           <Form.Text id="passwordHelpBlock" muted>
@@ -40,10 +41,11 @@ const ThemeBuilders = ({ FormsData, checkBoxData }) => {
             type="radio"
             label="Fixed right side total with vertical scroll"
             id="fixedRight"
-            name="builderTheme"
-            value="fixedRight"
+            name="builder_theme_variant"
+            value={'fixed_right_side_with_scroll'}
+            data-parent='theme'
             onChange={(e) => {
-              FormsData(e);
+              radioButtonData(e);
             }}
           />
           <Form.Text id="passwordHelpBlock" muted>
