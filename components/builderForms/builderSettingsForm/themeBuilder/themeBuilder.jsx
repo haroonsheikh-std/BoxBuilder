@@ -12,7 +12,7 @@ const ThemeBuilders = ({ FormsData, checkBoxData }) => {
   return (
     <>
       {/* <Form>  */}
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="builderTheme">
         <h5>Select which theme the builder will use</h5>
       </Form.Group>
       <Row>

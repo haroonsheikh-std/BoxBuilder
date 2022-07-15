@@ -136,20 +136,20 @@ Unless you specify font size here, it will take the default size of your theme.
 You may need to be familiar with CSS to achieve a more advanced design. You can use the 'Code View' in the editor to add CSS and custom classes." />
 
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="title">
                                     <Form.Label className="text-sm ">Step Title</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.title} required placeholder='e.g select your Hard Drive' name='title' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
                                 </Form.Group>
                             </Col>
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="description">
                                     <Form.Label className="text-sm ">Step Description</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.description} required placeholder='e.g You cans select only one Hard Drive' name='description' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
                                     <p className="text-secondary text-sm"> Additional text to help the customer understand what's required from this step. </p>
                                 </Form.Group>
                             </Col>
 
-                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                            <Form.Group className="mb-3" controlId="allow_more_than_one_product">
                                 <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.allow_more_than_one_product} data-parent='meta_settings' name='allow_more_than_one_product' type="checkbox" label="Allow more than 1 of the same product to be selected" onChange={(e) => {
                                     checkBoxData(e)
                                 }} />
@@ -157,14 +157,14 @@ You may need to be familiar with CSS to achieve a more advanced design. You can 
                             </Form.Group>
                             <Row>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="DisplayOrder">
+                                    <Form.Group className="mb-3" controlId="display_order">
                                         <Form.Label className="text-sm ">Display Order</Form.Label>
                                         <Form.Control required defaultValue={currentEditObject?.display_order} placeholder='e.g 1' name='display_order' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label='Display Order' />
                                         <p className="text-secondary text-sm">Set the order the step will display within this builder.</p>
                                     </Form.Group>
                                 </Col>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Group className="mb-3" controlId="hide_from_step_progress">
                                         <Form.Check className="text-sm" data-parent='meta_settings' defaultChecked={currentEditObject?.meta_settings?.hide_from_step_progress} name='hide_from_step_progress' type="checkbox" label="Hide from Step Progress" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />

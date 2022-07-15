@@ -11,25 +11,25 @@ const BuilderSettings = ({ FormsData,checkBoxData }) => {
     // collapsData
     return (
         <Form id="builder_settings" onSubmit={() => { console.log('form Submitted') }}>
-            <Form.Group className="mb-3" controlId="buildername" >
+            <Form.Group className="mb-3" controlId="builder_name" >
                 <Form.Label className="text-sm ">Builder Name</Form.Label>
                 <Form.Control required name='builder_name' value={builderName} onChange={(e) => { FormsData(e) }} type="text" placeholder="e.g. Build Your Custom Laptop" />
             </Form.Group>
             <Row>
                 <Col >
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Group className="mb-3" controlId="live">
                         <Form.Check className="text-sm" name='live' value={checkMeOut} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Check me out" />
                         <p className="text-secondary text-sm">You can uncheck if you wish to deactivate the builder.   </p>
                     </Form.Group>
                 </Col>
                 <Col >
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Group className="mb-3" controlId="charge_tax">
                         <Form.Check className="text-sm" defaultValue={chargeTax} name='charge_tax' value={chargeTax} onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Charge Tax" />
                         <p className="text-secondary text-sm">Would you like to charge tax when adding the boxes to the cart? </p>
                     </Form.Group>
                 </Col>
                 <Col >
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Group className="mb-3" controlId="redirect">
                         <Form.Label className="text-sm ">When complete, send customers to the:</Form.Label>
                         <Form.Select name="redirect" onChange={(e)=>{ FormsData(e) }} aria-label="Default select example">
                             <option selected name="cart"  value="CART">Cart</option>
@@ -40,7 +40,7 @@ const BuilderSettings = ({ FormsData,checkBoxData }) => {
             </Row>
             <Row>
                 <Col >
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Group className="mb-3" controlId="use_fixed_price">
                         <Form.Check  className="text-sm" name='use_fixed_price' type="checkbox" label="Use a Fixed Price" onChange={(e)=>{ 
                             setIsFixedprice(!isFixedPrice)
                             checkBoxData(e)
@@ -51,7 +51,7 @@ const BuilderSettings = ({ FormsData,checkBoxData }) => {
                 {
                     isFixedPrice ?
                         <Col >
-                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                            <Form.Group className="mb-3" controlId="fixed_price">
                                 <Form.Label className="text-sm ">Fixed Price</Form.Label>
                                 <Form.Control value={fixedPrice} name='fixed_price' className="text-sm" onChange={(e)=>{ FormsData(e) }} type="number" placeholder="e.g. 99.99" label="Default value" />
                                 <p className="text-secondary text-sm">The price of the box will always remain at this fixed price. </p>
@@ -60,7 +60,7 @@ const BuilderSettings = ({ FormsData,checkBoxData }) => {
                         : null
                 }
                 <Col >
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Group className="mb-3" controlId="start_price">
                         <Form.Label className="text-sm ">Start Price</Form.Label>
                         <Form.Control defaultValue={0} name='start_price' className="text-sm" type="number" onChange={(e)=>{ FormsData(e) }} label="Default value" />
                         <p className="text-secondary text-sm">Default is 0.00. This price of the builder will start at this value. </p>

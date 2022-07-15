@@ -20,13 +20,13 @@ const OrderProduct = ({ FormsData,checkBoxData }) => {
                 </Form.Group>
                 <Row>
                     <Col >
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Group className="mb-3" controlId="product_orders">
                             <Form.Check className="text-sm" name='product_orders'  onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Use Your Products on new Orders" />
                             <p className="text-secondary text-sm"> <span> <button onClick={(event)=>{setShow(true)}} className="text-sm underline text-blue-500">More Info</button></span>  </p>
                         </Form.Group>
                     </Col>
                     <Col >
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Group className="mb-3" controlId="keep_builder">
                             <Form.Check className="text-sm" name='keep_builder'  onChange={(e) => { checkBoxData(e) }} type="checkbox" label="Keep the builder on the order?" />
                             <p className="text-secondary text-sm">If the price of the builder won't be determined by the selected products, (e.g. you are using the Fixed Price option), this option is recommended.<span> <button onClick={()=>setShow(true)} className="text-sm underline text-blue-500">More Info</button></span> </p>
                         </Form.Group>

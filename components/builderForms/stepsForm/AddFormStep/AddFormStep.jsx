@@ -131,20 +131,20 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
                             <h3>Adding a Form Step</h3>
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="title">
                                     <Form.Label className="text-sm ">Step Title</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.title} required placeholder='e.g select your Hard Drive' name='title' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
                                 </Form.Group>
                             </Col>
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="description">
                                     <Form.Label className="text-sm ">Step Description</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.description} required placeholder='e.g You cans select only one Hard Drive' name='description' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label="Step Title" />
                                     <p className="text-secondary text-sm"> Additional text to help the customer understand what's required from this step. </p>
                                 </Form.Group>
                             </Col>
                             <Col >
-                                <Form.Group className="mb-3" controlId="StepTitle">
+                                <Form.Group className="mb-3" controlId="short_title">
                                     <Form.Label className="text-sm ">Step Short Title</Form.Label>
                                     <Form.Control defaultValue={currentEditObject?.short_title} required placeholder='e.g Gift Box' name='short_title' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='Step Short Title' />
                                     <p className="text-secondary text-sm"> If you're using the step progress bar, you can add a shorter title for this step to show there. </p>
@@ -152,14 +152,14 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                             </Col>
                             <Row>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="DisplayOrder">
+                                    <Form.Group className="mb-3" controlId="display_order">
                                         <Form.Label className="text-sm ">Display Order</Form.Label>
                                         <Form.Control required defaultValue={currentEditObject?.display_order} placeholder='e.g 1' name='display_order' className="text-sm" type="number" onChange={(e) => { FormsData(e) }} label='Display Order' />
                                         <p className="text-secondary text-sm">Set the order the step will display within this builder.</p>
                                     </Form.Group>
                                 </Col>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Group className="mb-3" controlId="requied_steps">
                                         <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.requied_steps} data-parent='meta_settings' name='requied_steps' type="checkbox" label="A Required Step" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
@@ -170,7 +170,7 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                             <Row>
                                 
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Group className="mb-3" controlId="show_box_content_summary">
                                         <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_box_content_summary} data-parent='meta_settings' name='show_box_content_summary' type="checkbox" label="Show Box Contents/Summary" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
@@ -178,7 +178,7 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                                     </Form.Group>
                                 </Col>
                                 <Col >
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                    <Form.Group className="mb-3" controlId="hide_from_step_progress">
                                         <Form.Check className="text-sm" data-parent='meta_settings' defaultChecked={currentEditObject?.meta_settings?.hide_from_step_progress} name='hide_from_step_progress' type="checkbox" label="Hide from Step Progress" onChange={(e) => {
                                             checkBoxData(e)
                                         }} />
@@ -213,7 +213,7 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                                         <Row>
 
                                             <Col >
-                                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                <Form.Group className="mb-3" controlId="show_sort_by_dropdown_menu">
                                                     <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_sort_by_dropdown_menu} data-parent='meta_settings' name='show_sort_by_dropdown_menu' type="checkbox" label="Show sort by drop down menu" onChange={(e) => {
                                                         checkBoxData(e)
                                                     }} />
@@ -221,7 +221,7 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                                                 </Form.Group>
                                             </Col>
                                             <Col >
-                                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                <Form.Group className="mb-3" controlId="show_title_filter">
                                                     <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_title_filter} data-parent='meta_settings' name='show_title_filter' type="checkbox" label="Show title filter" onChange={(e) => {
                                                         checkBoxData(e)
                                                     }} />
@@ -231,7 +231,7 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                                         </Row>
                                         <Row>
                                             <Col >
-                                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                <Form.Group className="mb-3" controlId="show_collection_filter">
                                                     <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.show_collection_filter} data-parent='meta_settings' name='show_collection_filter' type="checkbox" label="Show collection filter" onChange={(e) => {
                                                         checkBoxData(e)
                                                     }} />
@@ -239,7 +239,7 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                                                 </Form.Group>
                                             </Col>
                                             <Col >
-                                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                <Form.Group className="mb-3" controlId="set_collection_filter">
                                                     <label>0 collection(s) selected</label>
                                                     <Button variant="secondary" data-parent='meta_settings' name='set_collection_filter' className="button text-sm">Set Collections for Collections Filter</Button>
                                                 </Form.Group>
@@ -257,7 +257,7 @@ const AddFormStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
                                             <Col >
                                                 <Form.Group className="mb-3">
                                                     <Col >
-                                                        <Form.Group className="mb-3" controlId="MaximumSelections">
+                                                        <Form.Group className="mb-3" controlId="tags">
                                                             <Form.Label className="text-sm ">Limit to these tags only (optional)</Form.Label>
                                                             <Form.Control required data-parent='meta_settings' defaultValue={currentEditObject?.meta_settings?.tags} placeholder='e.g Bags, Shoes, Necklaces' name='tags' className="text-sm" type="text" onChange={(e) => { FormsData(e) }} label='Limit to these tags only (optional)' />
                                                             <p className="text-secondary text-sm">A comma-separated list of tags to show. If used, all other tags will be hidden. Please make sure to capitalize tags where necessary.</p>
