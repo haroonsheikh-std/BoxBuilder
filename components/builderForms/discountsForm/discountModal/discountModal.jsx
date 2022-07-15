@@ -3,16 +3,10 @@ import { Form, Button, Row, Col, Spinner, Dropdown, Modal } from "react-bootstra
 import api from '../../../../api/index'
 import { dicountFormData } from '../../../../constants/defaultData'
 
-<<<<<<< HEAD
 const DiscountModals = ({ lgShow, handleModalClose, getDiscounts, editAbleObject }) => {
     console.log('editAbleObject=>', editAbleObject);
     const [isEdit, setIsEdit] = useState(editAbleObject ? true : false)
     const [formData, setFormData] = useState(isEdit ? editAbleObject : dicountFormData)
-=======
-const DiscountModals = ({ editAbleObject, lgShow, handleModalClose, getDiscounts }) => {
-    const [isEdit, setIsEdit] = useState(editAbleObject ? true : false)
-    const [formData, setFormData] = useState( isEdit ?  editAbleObject : dicountFormData);
->>>>>>> dev2
     const [validated, setValidated] = useState(false);
     const [isEncourageDiscount, setIsEncourageDiscount] = useState()
     const [itemReached, setItemReached] = useState()
