@@ -75,6 +75,7 @@ const DisplaySettings = ({ FormsData,checkBoxData }) => {
                             <p className="text-secondary text-sm">Show/hide the step numbers above each step.</p>
                         </Form.Group>
                     </Col>
+                    
                 </Row>
                 
             </Form>

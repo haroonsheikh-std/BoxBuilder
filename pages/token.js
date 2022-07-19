@@ -17,11 +17,11 @@ export default function Token(props) {
 
 export async function getServerSideProps(ctx) {
 
-  const code = ctx.query.code;
+  const code = '223423eaesdafs'; //ctx.query.code;
 
    // let params = context.json();
-    let api_key = '4896adec8987d25fe60ded70e471506b';
-    let seret_key = '8ddaa00c56ca4e1958b55449d7bed59d';
+    let api_key = '104d3bcd73339f135205587b9f9ec6e1';
+    let seret_key = '9a17f1ba9296d8545f6a55b598441fd0';
 
 
     var myHeaders = new Headers();

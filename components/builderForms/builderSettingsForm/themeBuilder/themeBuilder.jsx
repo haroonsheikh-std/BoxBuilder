@@ -8,7 +8,7 @@ import {
   Accordion,
   Image,
 } from "react-bootstrap";
-const ThemeBuilders = ({ FormsData, checkBoxData, radioButtonData }) => {
+const ThemeBuilders = ({ radioButtonData }) => {
   return (
     <>
       {/* <Form>  */}
@@ -24,6 +24,7 @@ const ThemeBuilders = ({ FormsData, checkBoxData, radioButtonData }) => {
             name="builder_theme_variant"
             value={'full_width_with_fixed_bottom'}
             data-parent='theme'
+            defaultChecked
             onChange={(e) => {
               radioButtonData(e);
             }}
@@ -40,7 +41,7 @@ const ThemeBuilders = ({ FormsData, checkBoxData, radioButtonData }) => {
           <Form.Check
             type="radio"
             label="Fixed right side total with vertical scroll"
-            id="fixedRight"
+            id="mnm"
             name="builder_theme_variant"
             value={'fixed_right_side_with_scroll'}
             data-parent='theme'

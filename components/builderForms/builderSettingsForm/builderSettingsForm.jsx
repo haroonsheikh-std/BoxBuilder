@@ -137,6 +137,9 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <OrderProduct checkBoxData={checkBoxData} FormsData={FormsData} />
                 <hr />
                 <DisplaySettings checkBoxData={checkBoxData} FormsData={FormsData} />
+                <div>
+                    
+                </div>
                 <hr />
                 <StyleSettings colorsData={colorsData} checkBoxData={checkBoxData} FormsData={FormsData} />
                 <hr />
@@ -148,7 +151,7 @@ const BuilderSettingsForm = ({ moveToNext, stepNo, moveToPrevious }) => {
                 <hr />
                 <EditTranslation checkBoxData={checkBoxData} FormsData={FormsData} />
                 <hr />
-                <ThemeBuilders radioButtonData={radioButtonData} checkBoxData={checkBoxData} FormsData={FormsData} />
+                <ThemeBuilders radioButtonData={radioButtonData} />
                 <hr />
                 <div className="footer_details">
                     {

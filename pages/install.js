@@ -13,9 +13,9 @@ export default function Install() {
 
 
 let shop = event.target.stor_url.value;
-let api_key  = '4896adec8987d25fe60ded70e471506b';
+let api_key  = '104d3bcd73339f135205587b9f9ec6e1';
 let scopes = 'read_orders,read_products,read_product_listings';
-let redirect_url = 'https://245a-54-146-232-65.ngrok.io/token';
+let redirect_url = `https://a909-54-146-232-65.ngrok.io/token`;
 
 // Build install/approval URL to redirect to
 let install_url = `https://${shop}/admin/oauth/authorize?client_id=${api_key}&scope=${scopes}&redirect_uri=${redirect_url}`;
