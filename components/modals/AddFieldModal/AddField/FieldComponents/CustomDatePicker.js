@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { Col,Form,Row } from "react-bootstrap";
 import {language, weekDays} from "../../../../../constants/defaultData";
+import DatesModal from "../../../dateModal/datesModal";
 
 
 const CustomDatePickerField = () => {
+  const [modalState, setModalState] = useState(false);
 console.log(language, 'languageee');
+
+
+const handleClose = () => setModalState(false);
+const handleShow = () => setModalState(true);
+
     return (
         <div>
         <Col >
@@ -72,9 +80,10 @@ console.log(language, 'languageee');
                 <Col >
                     <Form.Group className="mb-3" controlId="lived">
                      <p>Block Specific Dates</p>  
-                     <button type="button" class="btn btn-outline-secondary">Set Blocked Dates</button>
+                     <button type="button" class="btn btn-outline-secondary" onClick={handleShow}>Set Blocked Dates</button>
                     </Form.Group>
                 </Col>
+                <DatesModal handleClose={handleClose} modalState={modalState}/>
 <hr/>
 {/* <DatePickers/> */}
     </div>
