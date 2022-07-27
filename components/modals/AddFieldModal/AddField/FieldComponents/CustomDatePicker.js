@@ -22,11 +22,20 @@ const handleShow = () => setModalState(true);
             </Form.Group>
         </Col>
         <Row>
-            <Col >
-                <Form.Group className="mb-3" controlId="descriptions">
-                    <Form.Label className="text-sm ">Date Format</Form.Label>
-                    <Form.Control placeholder='e.g 1' name='descriptions' type='date' className="text-sm" onChange={(e) => { }} label="Required Field" />
-                 
+        <Col >
+                <Form.Group className="mb-3" controlId="redirect">
+                    <Form.Label className="text-sm ">Language</Form.Label>
+                    <Form.Select name="redirect" aria-label="Default select example">
+
+                        <>
+                        <option selected>mm/dd/yyyy</option>
+                        <option>dd/mm/yyyy</option>
+                        <option>yyyy/mm/dd</option>
+                        </>
+                
+                                   
+                                </Form.Select>
+        
                 </Form.Group>
             </Col>
             <Col >
