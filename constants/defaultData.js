@@ -191,4 +191,19 @@ export const language = [
         'Sunday'
     ]
 
+
+   export const fieldTypes = [
+        'Text Entry',
+        'Text Entry (Multi-line)',
+        'DropDown Box',
+        'Number entry',
+        'Date Entry',
+        'Custom Date Picker',
+        'Swatch Color Picker',
+        'Image Selection',
+        'File/Image Upload',
+        'Checkbox',
+        'Color Picker'
+    ]
+
 export default builderSettingsData

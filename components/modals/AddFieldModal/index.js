@@ -2,24 +2,11 @@ import { useState } from "react"
 import { Form, Button, Row, Col, Dropdown, Accordion, Modal } from "react-bootstrap"
 import AddField from './AddField/index'
 import Image from "next/image"
+import { fieldTypes } from "../../../constants/defaultData"
 
 const AddFieldModal = ({ modalState, handleClose }) => {
 
-    const [selectedFieldType, setSelectedFIeldType] = useState();
-
-    const fieldTypes = [
-        'Text Entry',
-        'Text Entry (Multi-line)',
-        'DropDown Box',
-        'Number entry',
-        'Date Entry',
-        'Custom Date Picker',
-        'Swatch Color Picker',
-        'Image Selection',
-        'File/Image Upload',
-        'Checkbox',
-        'Color Picker'
-    ]
+    const [selectedFieldType, setSelectedFIeldType] = useState(fieldTypes[0]);
 
     const handleFieldDropdown = (e) => {
         console.log(e.target.value)
@@ -45,14 +32,17 @@ const AddFieldModal = ({ modalState, handleClose }) => {
                             <Form.Group className="mb-3" controlId="redirect">
                                 <Form.Label className="text-sm ">Field Type</Form.Label>
                                 <Form.Select name="redirect" onChange={(e) => { handleFieldDropdown(e) }} aria-label="Default select example">
-                                    {fieldTypes.map((d, i) => {
-                                        return (
-                                            <>
-                                                <option selected name={d} value={d}>{d} </option>
-                                            </>
-                                        )
-                                    }
-                                    )}
+                                    <>
+                                        <option selected name={fieldTypes[0]} value={fieldTypes[0]}>{fieldTypes[0]} </option>
+                                        {fieldTypes.map((d, i) => {
+                                            return (
+                                                <>
+                                                    <option name={d} value={d}>{d} </option>
+                                                </>
+                                            )
+                                        }
+                                        )}
+                                    </>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
@@ -60,7 +50,7 @@ const AddFieldModal = ({ modalState, handleClose }) => {
 
                     <AddField fieldType={selectedFieldType} />
 
-                    
+
                     <Col>
                         <Form.Label className="text-sm font-bold ">Conditions</Form.Label>
                         <Col>
