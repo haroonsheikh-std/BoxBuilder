@@ -11,6 +11,14 @@ import api from "../../../../api/index";
 import InformationCard from '../../../widgets/infoCard'
 import PickCollectionsModal from '../../../modals/pickCollections/pickCollection'
 import AddProductsModal from '../../../modals/AddProductsModal/addProductsModal'
+import dynamic from 'next/dynamic';
+
+const RichTextEditor = dynamic(
+    () => {
+        return import('../../../NoSSR/RichTextEditor');
+    },
+    { ssr: false,loading:()=><p>loading...</p> }
+);
 
 const AddContentHmtlStep = ({ getSteps, handleResetCallback, currentEditObject }) => {
     const [isEdit, setIsEdit] = useState(currentEditObject && currentEditObject != '' ? true : false)
@@ -20,6 +28,12 @@ const AddContentHmtlStep = ({ getSteps, handleResetCallback, currentEditObject }
     const [isProductsModal, setIsProductsModal] = useState(false)
     const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState(isEdit ? currentEditObject : initialValues);
+
+    const [editorState, setEditorState] = useState();
+
+    const handleRichTextEditor = (change) => {
+        setEditorState({ change })
+    }
 
     const ProductsModal = () => {
         setIsProductsModal(false);
@@ -61,7 +75,6 @@ const AddContentHmtlStep = ({ getSteps, handleResetCallback, currentEditObject }
 
         setValidated(true);
     };
-
 
     const handleProductsCallback = (obj, event) => {
         if (event?.target.checked) {
@@ -148,7 +161,6 @@ You may need to be familiar with CSS to achieve a more advanced design. You can 
                                     <p className="text-secondary text-sm"> Additional text to help the customer understand what's required from this step. </p>
                                 </Form.Group>
                             </Col>
-
                             <Form.Group className="mb-3" controlId="allow_more_than_one_product">
                                 <Form.Check className="text-sm" defaultChecked={currentEditObject?.meta_settings?.allow_more_than_one_product} data-parent='meta_settings' name='allow_more_than_one_product' type="checkbox" label="Allow more than 1 of the same product to be selected" onChange={(e) => {
                                     checkBoxData(e)
@@ -172,15 +184,15 @@ You may need to be familiar with CSS to achieve a more advanced design. You can 
                                     </Form.Group>
                                 </Col>
                             </Row>
-
-
                             <hr />
-
+                            {/* Rich text editor */}
+                            <Row>
+                                <RichTextEditor />
+                            </Row>
                             <div className="float-right">
                                 <Button variant="secondary" size="sm" onClick={() => handleResetCallback()}>Back</Button>
                                 <Button className="ml-2" variant="primary" size="sm" type="submit">Submit</Button>
                             </div>
-
                         </Form>
                     )
                 }
